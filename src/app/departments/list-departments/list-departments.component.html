@@ -1,0 +1,11 @@
+<a style="cursor: pointer;" *ngIf="node && node.guid!=''" (click)="navigateToChild(node.parentGuid)">
+  < </a> <ul>
+    <li *ngFor="let department of departments">
+      <span>
+        <a>{{department.name}}
+        </a>
+        <a style="cursor: pointer;" *ngIf="department.children.length>0" (click)="navigateToChild(department.guid)"> >
+        </a>
+      </span>
+    </li>
+    </ul>
