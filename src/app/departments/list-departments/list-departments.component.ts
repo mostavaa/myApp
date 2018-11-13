@@ -1,5 +1,5 @@
 import { DepartmentService } from './../../services/departments/department.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from './../../models/Department';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,15 +13,20 @@ export class ListDepartmentsComponent implements OnInit {
   departments: Department[]
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private departmentService: DepartmentService
   ) { }
 
   ngOnInit() {
     this.departments = this.departmentService.getDepartments();
     this.route.params.subscribe((params) => {
-      if (params["departmentGuid"])
+      if (params["departmentGuid"]) {
         this.getDepartmentByGuid(params["departmentGuid"])
+      }
     })
+  }
+  navigateToDepartment(guid) {
+    this.router.navigate(['/Products', guid]);
   }
   getDepartmentByGuid(guid: string) {
     let department = this.departmentService.getDepartmentByGuid(guid);

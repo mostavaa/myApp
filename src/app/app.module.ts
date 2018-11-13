@@ -15,6 +15,7 @@ import { CreateEditDepartmentComponent } from './departments/create-edit-departm
 import { DetailsDepartmentComponent } from './departments/details-department/details-department.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProductsService } from './services/products/product.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [DepartmentService,AuthService,{
+  providers: [DepartmentService, ProductsService, AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

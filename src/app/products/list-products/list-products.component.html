@@ -1,6 +1,6 @@
 <div>
   <ul>
-    <li><a >product 1</a></li>
-    <li><a >product 2</a></li>
+    <li *ngFor="let product of products"><a>{{product.name}}</a></li>
   </ul>
 </div>
+<button [disabled]="endOfProducts" style="cursor:pointer" (click)="next()">next</button>
