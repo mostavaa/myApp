@@ -1,0 +1,40 @@
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.deps.json
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.runtimeconfig.json
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.runtimeconfig.dev.json
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.dll
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.pdb
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csprojAssemblyReference.cache
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csproj.CoreCompileInputs.cache
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorAssemblyInfo.cache
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorAssemblyInfo.cs
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.AssemblyInfoInputs.cache
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.AssemblyInfo.cs
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorTargetAssemblyInfo.cache
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.dll
+C:\Users\Mostava\Desktop\Clothes Ad\Clothes Ad\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.pdb
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.deps.json
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.runtimeconfig.json
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.runtimeconfig.dev.json
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.dll
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Clothes Ad.pdb
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Data.dll
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\Data.pdb
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csprojAssemblyReference.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csproj.CoreCompileInputs.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorAssemblyInfo.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorAssemblyInfo.cs
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.AssemblyInfoInputs.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.AssemblyInfo.cs
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.RazorTargetAssemblyInfo.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csproj.CopyComplete
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.dll
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.pdb
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.csproj.GenerateResource.cache
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\bin\Debug\netcoreapp2.1\ar-EG\Clothes Ad.resources.dll
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.Controllers.Departments.resources
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.SharedResources.resources
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.Controllers.Departments.ar-EG.resources
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.SharedResources.ar-EG.resources
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\ar-EG\Clothes Ad.resources.dll
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.Controllers.Products.resources
+G:\Visual Studio Workspace\Clothes Ad\Clothes Ad\ClothesAd\Clothes Ad\obj\Debug\netcoreapp2.1\Clothes Ad.Resources.Controllers.Products.ar-EG.resources

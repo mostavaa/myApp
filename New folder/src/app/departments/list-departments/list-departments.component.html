@@ -1,0 +1,16 @@
+<div *ngFor="let node of treeData">
+  <li class="" [ngClass]="{'active':(node.active || id == node.guid)}" (click)="activateThisItem(node)">
+    <a><span style="cursor:pointer" (click)="navigateToDepartmentProducts(node.guid)">{{node.deptName}}</span>
+      <span style="cursor:pointer" (click)="toggleSubMenu(node , $event)">
+        <span class="glyphicon glyphicon-chevron-right" *ngIf="!node.collapse && node.children.length>0"></span>
+        <span class="glyphicon glyphicon-chevron-down" *ngIf="node.collapse"></span>
+      </span>
+      <span style="float: right;">
+        <span (click)="navigateToNewDepartment(node)" style="cursor:pointer;margin: 2px 5px"><span class="glyphicon glyphicon-plus"></span></span>
+        <span (click)="navigateToEditDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-edit"></span></span>
+        <span (click)="removeDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></span>
+      </span>
+    </a>
+  </li>
+  <app-list-departments [ngStyle]="{'display' : node.collapse ? '' : 'none' }" [treeData]="node.children"></app-list-departments>
+</div>
