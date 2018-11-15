@@ -1,0 +1,9 @@
+.single-products-catagory {
+  float: left;
+  height: 350px;
+}
+
+  .single-products-catagory img {
+    width: 100%;
+    height: 100%
+  }

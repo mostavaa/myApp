@@ -5,6 +5,7 @@ export class Product {
   price: number;
   departmentGuid: string;
   guid: string;
+  picture: string;
   constructor() {
 
   }

@@ -1,5 +1,5 @@
 import { DepartmentService } from './../../services/departments/department.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { Department } from './../../models/Department';
 import { Component, OnInit } from '@angular/core';
 
@@ -19,14 +19,25 @@ export class ListDepartmentsComponent implements OnInit {
 
   ngOnInit() {
     this.departments = this.departmentService.getDepartments();
-    this.route.params.subscribe((params) => {
-      if (params["departmentGuid"]) {
-        this.getDepartmentByGuid(params["departmentGuid"])
+    this.node = {
+      name: "",
+      children: this.departments,
+      guid: '',
+      parentGuid: ''
+    };
+    this.router.events.subscribe(val => {
+      if (val instanceof RoutesRecognized) {
+        if (val.state.root.firstChild.params["departmentGuid"]) {
+          this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
+        }
       }
-    })
+    });
   }
   navigateToDepartment(guid) {
-    this.router.navigate(['/Products', guid]);
+    this.router.navigate(['/products', guid]);
+  }
+  navigateToAdd() {
+    this.router.navigate(['']);
   }
   getDepartmentByGuid(guid: string) {
     let department = this.departmentService.getDepartmentByGuid(guid);

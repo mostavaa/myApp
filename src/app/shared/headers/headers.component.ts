@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./headers.component.css']
 })
 export class HeadersComponent implements OnInit {
+  showNav = true;
 
   constructor(private authService: AuthService,
     private http:HttpClient
@@ -27,5 +28,11 @@ export class HeadersComponent implements OnInit {
     this.http.get(Constants.websiteEndPoint+"/values").subscribe(res=>{
       console.log(res);
     })
+  }
+  toggleMenu() {
+    this.showNav = !this.showNav;
+  }
+  hideNav() {
+    this.showNav = false;
   }
 }

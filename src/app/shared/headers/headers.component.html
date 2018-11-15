@@ -1,17 +1,39 @@
-<app-list-departments></app-list-departments>
-<div>
-    <ul>
-        <li *ngIf="isLogged()" (click)="logout()">
-            <a class="btn btn-default">logout</a>
-        </li>
-        <li routerLinkActive="active" *ngIf="!isLogged()" >
-            <a class="btn btn-default " routerLink="/auth/login/">login</a>
-        </li>
-        <li routerLinkActive="active" *ngIf="!isLogged()" >
-            <a class="btn btn-default" routerLink="/auth/register/">register</a>
-        </li>
-        <li routerLinkActive="active" *ngIf="isLogged()" >
-                <a class="btn btn-default" (click)="getValues()">get Values</a>
-            </li>
-    </ul>
+<!-- Close Icon -->
+<div class="mobile-nav">
+  <!-- Navbar Brand -->
+  <div class="amado-navbar-brand">
+    <a><img src="./../../assets/img/logo.png" alt=""></a>
+  </div>
+  <!-- Navbar Toggler -->
+  <div (click)="toggleMenu()" class="amado-navbar-toggler">
+    <span></span><span></span><span></span>
+  </div>
 </div>
+<header [ngClass]="{ 'bp-xs-on':showNav}" class="col-md-4 header-area clearfix">
+  <div (click)="hideNav()" class="nav-close">
+    <i class="fa fa-close" aria-hidden="true"></i>
+  </div>
+  <!-- Logo -->
+  <div class="logo">
+    <a><img src="./../../assets/img/logo.png" alt=""></a>
+  </div>
+  <!-- Amado Nav -->
+  <nav class="amado-nav">
+    <ul>
+
+      <app-list-departments></app-list-departments>
+      <li *ngIf="isLogged()" (click)="logout()">
+        <a >logout</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!isLogged()">
+        <a routerLink="/auth/login/">login</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!isLogged()">
+        <a routerLink="/auth/register/">register</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isLogged()">
+        <a  (click)="getValues()">get Values</a>
+      </li>
+    </ul>
+  </nav>
+</header>

@@ -1,15 +1,35 @@
-<a style="cursor: pointer;" *ngIf="node && node.guid!=''" (click)="navigateToChild(node.parentGuid)">
-  <
-</a>
-<ul>
-  <li *ngFor="let department of departments">
-    <span>
-      <a style="cursor:pointer" (click)="navigateToDepartment(department.guid)">
-        {{department.name}}
-      </a>
-      <a  style="cursor: pointer;" *ngIf="department.children.length>0" (click)="navigateToChild(department.guid)">
-        >
-      </a>
+<li class="active">
+  <a>
+    <span style="cursor: pointer;" *ngIf="node && node.guid!=''" (click)="navigateToChild(node.parentGuid)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+    <span  style="cursor:pointer" (click)="navigateToDepartment(node.guid)">
+      {{node.name}}
     </span>
-  </li>
-</ul>
+  </a>
+</li>
+<li  *ngFor="let department of departments">
+  <a>
+    <span>
+      <span style="cursor:pointer" (click)="navigateToDepartment(department.guid)">
+        {{department.name}}
+      </span>
+
+      <span style="cursor: pointer;" class="glyphicon glyphicon-chevron-right" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+      <span class="fa fa-edit"></span>
+      <span class="fa fa-plus"></span>
+    </span>
+  </a>
+</li>
+<li >
+  <a (click)="navigateToAdd()">
+    <span class="fa fa-plus"></span>
+  </a>
+</li>
+<!--<li class="" [ngClass]="{'active':(node.active || id == node.guid)}" (click)="activateThisItem(node)">
+  <a>
+    <span style="float: right;">
+      <span (click)="navigateToNewDepartment(node)" style="cursor:pointer;margin: 2px 5px"><span class="glyphicon glyphicon-plus"></span></span>
+      <span (click)="navigateToEditDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-edit"></span></span>
+      <span (click)="removeDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></span>
+    </span>
+  </a>
+</li>-->

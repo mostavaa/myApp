@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '../../models/Product';
+import { ProductsService } from '../../services/products/product.service';
 
 @Component({
   selector: 'app-details-product',
@@ -6,10 +9,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./details-product.component.css']
 })
 export class DetailsProductComponent implements OnInit {
-
-  constructor() { }
+  guid: string;
+  product: Product
+  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductsService) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      if (params["guid"]) {
+        this.guid = params["guid"];
+        this.initProduct();
+      }
+    })
   }
+  initProduct() {
+    let product = this.productService.getByGuid(this.guid);
+    if (product) {
+      this.product = product;
+    }
+  }
+
+  navigateToEdit() {
+    debugger;
+    if (this.product && this.product.departmentGuid)
+      this.router.navigate(["/editProduct", this.product.departmentGuid, this.guid]);
+  }
+
 
 }
