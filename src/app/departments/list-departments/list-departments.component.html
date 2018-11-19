@@ -1,26 +1,28 @@
-<li class="active">
+<li [ngClass]="{'active':node.guid==routeDepartmentGuid}" (click)="navigateToChild(node.parentGuid)" >
   <a>
-    <span style="cursor: pointer;" *ngIf="node && node.guid!=''" (click)="navigateToChild(node.parentGuid)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-    <span  style="cursor:pointer" (click)="navigateToDepartment(node.guid)">
-      {{node.name}}
+    <span style="cursor: pointer;" *ngIf="node && node.guid!=''" ><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+    <span style="cursor:pointer">
+      {{node.name | minStrLength:21}}
     </span>
   </a>
 </li>
-<li  *ngFor="let department of departments">
+<li [ngClass]="{'active':department.guid==routeDepartmentGuid}" [@slideInOut] *ngFor="let department of departments">
   <a>
     <span>
       <span style="cursor:pointer" (click)="navigateToDepartment(department.guid)">
-        {{department.name}}
+        {{department.name | minStrLength:15 }}
       </span>
 
-      <span style="cursor: pointer;" class="glyphicon glyphicon-chevron-right" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-      <span class="fa fa-edit"></span>
-      <span class="fa fa-plus"></span>
+      <span  style="cursor: pointer;float:right;font-size: 14px;" class="badge" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0">
+        ...
+      </span>
+      <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-edit" (click)="navigateToEdit(department.guid)"></span>
+      <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-plus" (click)="navigateToAdd(department.guid)"></span>
     </span>
   </a>
 </li>
-<li >
-  <a (click)="navigateToAdd()">
+<li *ngIf="isLogged()">
+  <a (click)="navigateToAdd(0)">
     <span class="fa fa-plus"></span>
   </a>
 </li>

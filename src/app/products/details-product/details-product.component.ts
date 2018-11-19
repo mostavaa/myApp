@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/Product';
 import { ProductsService } from '../../services/products/product.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-details-product',
@@ -11,7 +12,11 @@ import { ProductsService } from '../../services/products/product.service';
 export class DetailsProductComponent implements OnInit {
   guid: string;
   product: Product
-  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductsService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private productService: ProductsService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -20,6 +25,9 @@ export class DetailsProductComponent implements OnInit {
         this.initProduct();
       }
     })
+  }
+  isLogged() {
+    return this.authService.isLogged();
   }
   initProduct() {
     let product = this.productService.getByGuid(this.guid);

@@ -156,5 +156,17 @@ export class AuthService {
             return user.refreshToken;
         }
         return '';
+  }
+
+   setLanguage(lang) {
+    if (lang)
+      localStorage.setItem("language", lang);
+  }
+   getLanguage() {
+    let lang = localStorage.getItem("language");
+    if (lang) {
+      return (lang);
     }
+    return "en";
+  }
 }

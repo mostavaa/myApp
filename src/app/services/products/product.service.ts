@@ -315,9 +315,10 @@ export class ProductsService {
 
       }
     ];
-    this.initProducts();
+    this.initProducts("all");
   }
-  initProducts() {
+  initProducts(currentDepartmentGuid:string) {
+    this.currentDepartmentGuid = currentDepartmentGuid;
     this.products = [];
     this.page = 0;
     if (this.currentDepartmentGuid != "all") {
@@ -330,15 +331,9 @@ export class ProductsService {
       this.endOfProducts = false;
   }
 
-  getProducts(currentDepartmentGuid: string) {
-
-    if (this.currentDepartmentGuid != currentDepartmentGuid) {
-      this.currentDepartmentGuid = currentDepartmentGuid;
-      this.initProducts();
-    } else {
-      this.page++;
-    }
+  getProducts() {
     this.get();
+    this.page++;
   }
   private get() {
     if (this.page >= 0 && this.page <= this.pages) {

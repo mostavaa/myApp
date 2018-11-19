@@ -23,16 +23,19 @@
 
       <app-list-departments></app-list-departments>
       <li *ngIf="isLogged()" (click)="logout()">
-        <a >logout</a>
+        <a>logout</a>
       </li>
-      <li routerLinkActive="active" *ngIf="!isLogged()">
-        <a routerLink="/auth/login/">login</a>
+      <li  >
+        <a style="cursor:pointer" (click)="changeLanguage()">{{lang}}</a>
       </li>
-      <li routerLinkActive="active" *ngIf="!isLogged()">
-        <a routerLink="/auth/register/">register</a>
-      </li>
+      <!--<li routerLinkActive="active" *ngIf="!isLogged()">
+    <a routerLink="/auth/login/">login</a>
+  </li>
+  <li routerLinkActive="active" *ngIf="!isLogged()">
+    <a routerLink="/auth/register/">register</a>
+  </li>-->
       <li routerLinkActive="active" *ngIf="isLogged()">
-        <a  (click)="getValues()">get Values</a>
+        <a (click)="getValues()">get Values</a>
       </li>
     </ul>
   </nav>

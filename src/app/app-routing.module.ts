@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {path:"", redirectTo:"/products" , pathMatch:"full"},
-  {path:"createDepartment/:departmentGuid/create",component:CreateEditDepartmentComponent},
+  {path:"createDepartment/:parentGuid/create",component:CreateEditDepartmentComponent},
   {path:"createDepartment/:departmentGuid/edit",component:CreateEditDepartmentComponent},
   {path:"createProduct/:departmentGuid",component:CreateEditProductComponent},
   {path:"editProduct/:departmentGuid/:guid",component:CreateEditProductComponent},

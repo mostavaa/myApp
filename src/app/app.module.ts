@@ -16,7 +16,10 @@ import { DetailsDepartmentComponent } from './departments/details-department/det
 import { FooterComponent } from './shared/footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductsService } from './services/products/product.service';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MinStrLengthPipe } from './min-str-length.pipe';
+import { TranslatePipe } from './translate.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,11 +31,15 @@ import { ProductsService } from './services/products/product.service';
     CreateEditDepartmentComponent,
     DetailsDepartmentComponent,
     FooterComponent,
+    MinStrLengthPipe,
+    TranslatePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [DepartmentService, ProductsService, AuthService, {
     provide: HTTP_INTERCEPTORS,
@@ -41,4 +48,6 @@ import { ProductsService } from './services/products/product.service';
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

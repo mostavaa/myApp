@@ -1,3 +1,25 @@
-<p>
-  create-edit-department works!
-</p>
+<div class="checkout_details_area">
+
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" formControlName="departmentName" placeholder="department" class="form-control">
+          <span style="color:red" *ngIf="!departmentForm.get('departmentName').valid && departmentForm.get('departmentName').touched">
+            <span *ngIf="departmentForm.get('departmentName').errors['required']">This Field Is Required</span>
+            <span *ngIf="departmentForm.get('departmentName').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="submit" [disabled]="!departmentForm.valid" class="btn amado-btn" [value]="editMode?'edit':'add'">
+          <input *ngIf="editMode" type="button" (click)="deleteDepartment()" class="btn amado-btn" value="delete">
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>

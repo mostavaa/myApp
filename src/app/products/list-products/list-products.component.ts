@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products/product.service';
 import { Product } from '../../models/Product';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-list-products',
@@ -16,6 +17,7 @@ export class ListProductsComponent implements OnInit {
     private productsService: ProductsService,
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
 
   ) { }
 
@@ -28,17 +30,21 @@ export class ListProductsComponent implements OnInit {
       this.products = [];
       if (params["departmentGuid"]) {
         this.departmentGuid = params["departmentGuid"];
-        this.productsService.getProducts(this.departmentGuid);
+        this.productsService.initProducts(this.departmentGuid);
+        this.productsService.getProducts();
       } else {
-        this.productsService.getProducts("all");
+        this.productsService.initProducts("all");
+        this.productsService.getProducts();
       }
       this.endOfProducts = this.productsService.endOfProducts;
     })
 
   }
-
+  isLogged() {
+    return this.authService.isLogged();
+  }
   next() {
-    this.productsService.getProducts(this.departmentGuid);
+    this.productsService.getProducts();
     this.endOfProducts = this.productsService.endOfProducts;
   }
   navigateToProduct(product: Product) {

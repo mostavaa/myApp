@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\departments",
+    "\\src\\app\\auth",
+    "\\src\\app\\auth\\login",
+    "\\src\\app\\auth\\register",
+    "\\src\\app\\departments\\create-edit-department",
     "\\src\\app\\departments\\list-departments",
-    "\\src\\app\\services",
-    "\\src\\app\\shared",
-    "\\src\\app\\shared\\footer",
-    "\\src\\app\\shared\\headers",
-    "\\src\\assets"
+    "\\src\\app\\products\\create-edit-product",
+    "\\src\\assets\\css"
   ],
-  "SelectedNode": "\\src\\app\\departments\\list-departments\\list-departments.component.html",
+  "SelectedNode": "\\src\\app\\app-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }

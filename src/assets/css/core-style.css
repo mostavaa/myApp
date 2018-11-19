@@ -397,7 +397,7 @@ img {
     width: 320px;
     max-width: 320px;
     background-color: #fff;
-    padding: 20px 40px; }
+    padding: 60px 75px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .header-area {
         -webkit-box-flex: 0;
@@ -451,7 +451,6 @@ img {
       display: block; }
     .main-content-wrapper .header-area .amado-nav li a {
       font-size: 14px;
-      text-transform: uppercase;
       position: relative;
       z-index: 1;
       padding: 20px 0;

@@ -46,7 +46,7 @@
           <!-- Product Meta Data -->
           <div class="product-meta-data">
             <div class="line"></div>
-            <p class="product-price">LE {{product.price}}</p>
+            <p class="product-price">{{'le'|translate}} {{product.price}}</p>
             <a>
               <h6>{{product.name}}</h6>
             </a>
@@ -62,13 +62,13 @@
 
             </div>
             <!-- Avaiable -->
-            <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+            <!--<p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>-->
           </div>
-
           <div class="short_overview my-5">
+            
             <p>{{product.description}}</p>
           </div>
-          <div>
+          <div *ngIf="isLogged()">
             <a (click)="navigateToEdit()" class="btn"><span class="fa fa-edit"></span></a>
           </div>
         </div>

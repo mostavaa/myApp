@@ -23,7 +23,7 @@ export class DepartmentService {
           },
           {
             name: "sub2 department of root1",
-            guid: "11",
+            guid: "12",
             parentGuid: "1",
             children: []
           },
