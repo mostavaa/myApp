@@ -8,11 +8,14 @@ export class TranslatePipe implements PipeTransform {
   resources: any = {
     en: {
       hello: 'hello',
-      le:'LE'
+      le: 'LE',
+      rightsReserved:'all rights reserved'
     },
     ar: {
       hello: 'مرحبا',
-      le: 'جنيه'
+      le: 'جنيه',
+      rightsReserved: 'جميع الحقوق محفوظة'
+
     }
   }
   constructor(private authService: AuthService) {

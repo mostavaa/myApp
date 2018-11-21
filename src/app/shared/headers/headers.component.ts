@@ -32,11 +32,7 @@ export class HeadersComponent implements OnInit {
   isLogged() {
     return this.authService.isLogged();
   }
-  getValues() {
-    this.http.get(Constants.websiteEndPoint + "/values").subscribe(res => {
-      console.log(res);
-    })
-  }
+
   toggleMenu() {
     this.showNav = !this.showNav;
   }

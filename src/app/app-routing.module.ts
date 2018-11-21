@@ -4,13 +4,14 @@ import { CreateEditProductComponent } from './products/create-edit-product/creat
 import { CreateEditDepartmentComponent } from './departments/create-edit-department/create-edit-department.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './services/guards/auth.guard';
 
 const routes: Routes = [
-  {path:"", redirectTo:"/products" , pathMatch:"full"},
-  {path:"createDepartment/:parentGuid/create",component:CreateEditDepartmentComponent},
-  {path:"createDepartment/:departmentGuid/edit",component:CreateEditDepartmentComponent},
-  {path:"createProduct/:departmentGuid",component:CreateEditProductComponent},
-  {path:"editProduct/:departmentGuid/:guid",component:CreateEditProductComponent},
+  { path: "", redirectTo: "/products", pathMatch: "full" },
+  { path: "createDepartment/:parentGuid/create", component: CreateEditDepartmentComponent, canActivate: [AuthGuard] },
+  { path: "createDepartment/:departmentGuid/edit", component: CreateEditDepartmentComponent, canActivate: [AuthGuard]},
+  { path: "createProduct/:departmentGuid", component: CreateEditProductComponent, canActivate: [AuthGuard]},
+  { path: "editProduct/:departmentGuid/:guid", component: CreateEditProductComponent, canActivate: [AuthGuard]},
   {path:"products/:departmentGuid/:guid",component:DetailsProductComponent},
   {path:"products/:departmentGuid",component:ListProductsComponent},
   {path:"products",component:ListProductsComponent},

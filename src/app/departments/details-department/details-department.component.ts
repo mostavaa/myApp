@@ -1,4 +1,3 @@
-import { Department } from './../../models/Department';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

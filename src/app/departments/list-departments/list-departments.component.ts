@@ -1,6 +1,6 @@
 import { DepartmentService } from './../../services/departments/department.service';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
-import { Department } from './../../models/Department';
+import { Department } from '../../services/models';
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate, state } from '@angular/animations'
 import { AuthService } from '../../services/auth.service';
@@ -25,6 +25,7 @@ import { AuthService } from '../../services/auth.service';
       ]),
       transition(':leave', [
         animate('1s ease', style({
+          position:'absolute',
           opacity: 0,
           transform: ' translateX(-400px)',
         }))

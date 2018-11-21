@@ -5,12 +5,13 @@
     "\\src\\app",
     "\\src\\app\\auth",
     "\\src\\app\\auth\\login",
-    "\\src\\app\\auth\\register",
+    "\\src\\app\\departments",
     "\\src\\app\\departments\\create-edit-department",
     "\\src\\app\\departments\\list-departments",
-    "\\src\\app\\products\\create-edit-product",
-    "\\src\\assets\\css"
+    "\\src\\app\\services",
+    "\\src\\app\\services\\products",
+    "\\src\\app\\shared"
   ],
-  "SelectedNode": "\\src\\app\\app-routing.module.ts",
+  "SelectedNode": "\\src\\app\\departments\\create-edit-department\\create-edit-department.component.html",
   "PreviewInSolutionExplorer": false
 }

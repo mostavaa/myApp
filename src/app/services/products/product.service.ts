@@ -1,4 +1,4 @@
-import { Product } from "../../models/Product";
+import { Product } from "../../services/models";
 import { Subject } from "rxjs";
 
 export class ProductsService {

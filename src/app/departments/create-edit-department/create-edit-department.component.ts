@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from '../../services/departments/department.service';
-import { Department } from '../../models/Department';
+import { Department } from '../../services/models';
+
 
 @Component({
   selector: 'app-create-edit-department',
@@ -36,15 +37,20 @@ export class CreateEditDepartmentComponent implements OnInit {
 
   initForm() {
     let departmentNameControl = new FormControl(this.department ? this.department.name : null, [Validators.required, Validators.minLength(3)])
+    let departmentNameArControl = new FormControl(this.department ? this.department.nameAr : null, [Validators.required, Validators.minLength(3)])
     this.departmentForm = new FormGroup({
-      'departmentName': departmentNameControl
+      'departmentName': departmentNameControl,
+      'departmentNameAr': departmentNameArControl
     });
   }
 
   onSubmit() {
     if (this.departmentForm.valid) {
       if (!this.editMode) {
-        //this.departmentService.add(this.departmentForm.value['departmentName'], this.parentDepartment);
+        this.departmentService.add(
+          this.departmentForm.value['departmentName'],
+          this.departmentForm.value['departmentNameAr'],
+          this.parentDepartment);
       } else {
         //this.departmentService.edit(this.departmentForm.value['departmentName'], this.departmentGuid);
       }

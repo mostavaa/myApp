@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MinStrLengthPipe } from './min-str-length.pipe';
 import { TranslatePipe } from './translate.pipe';
+import { AuthGuard } from './services/guards/auth.guard';
+import { HttpService } from './services/http.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,10 @@ import { TranslatePipe } from './translate.pipe';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [DepartmentService, ProductsService, AuthService, {
+  providers: [
+    HttpService,
+    AuthGuard,
+    DepartmentService, ProductsService, AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

@@ -1,8 +1,12 @@
-import { Department } from './../../models/Department';
-
+import { Department } from './../../services/models';
+import { HttpService } from '../http.service';
+import { Constants } from '../constants';
+import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+@Injectable()
 export class DepartmentService {
   private departments: Department[]
-  constructor() {
+  constructor(private httpService: HttpService) {
 
     this.departments = [
       {
@@ -53,5 +57,35 @@ export class DepartmentService {
       return this.getDepartmentByGuidRecursive(element.children, guid);
     }
     return null;
+  }
+
+  add(name: string, nameAr: string, parent: string) {
+    let node = {
+      DeptName: name,
+      DeptNameAr: nameAr
+    }
+    let query;
+    if (parent == "0")
+      query = {
+        parentDepartmentGuid: parent
+      }
+    return this.httpService.invoke({
+      method: 'POST',
+      url: Constants.websiteEndPoint,
+      path: 'Departments' + '/add',
+      body: node,
+      query: parent != "0" ? query : null
+    }).pipe(
+      map((res) => {
+      debugger;
+        console.log("map");
+        console.log(res);
+      })).subscribe(success => {
+        console.log("success");
+        console.log(success);
+      }, error => {
+        console.log("error");
+        console.log(error);
+      })
   }
 }

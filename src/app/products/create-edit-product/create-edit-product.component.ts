@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Product } from '../../models/Product';
+import { Product } from '../../services/models';
 import { ProductsService } from '../../services/products/product.service';
 
 @Component({

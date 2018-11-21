@@ -1,3 +1,3 @@
 export class Constants{
- public static websiteEndPoint:string= "https://localhost:44385/api"
+  public static websiteEndPoint: string = "https://localhost:44343/api"
 }
