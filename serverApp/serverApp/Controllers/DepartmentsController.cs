@@ -112,7 +112,7 @@ namespace serverApp.Controllers
     public IActionResult GetAllDepartments()
     {
       var result = new List<object>();
-      var parentDepartments = UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == null).ToList();
+      var parentDepartments = UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == null).Include(o => o.ParentDepartment).ToList();
       foreach (var parentDepartment in parentDepartments)
       {
         result.Add(GetDepartmentChildren(parentDepartment));
@@ -130,14 +130,14 @@ namespace serverApp.Controllers
       //stop condition
       if (!UnitOfWork.DepartmentRepository.Get(o => o.Departments.Any(d => d.IsActive)).Any())
       {
-        return null;
+       return new { name = department.DeptName, nameAr = department.DeptNameAr, department.NumberOfProducts, guid = department.Guid, children=new { } };
       }
       var children = new List<object>();
       foreach (var subDept in UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == department.Id && o.IsActive))
       {
         children.Add(GetDepartmentChildren(subDept));
       }
-      return new { department.DeptName, collapse = false, department.NumberOfProducts, department.Guid, children };
+      return new { name = department.DeptName, nameAr = department.DeptNameAr, parentGuid = department.ParentDepartment.Guid, department.NumberOfProducts, guid = department.Guid, children };
     }
 
 

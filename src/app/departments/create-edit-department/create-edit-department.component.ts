@@ -3,6 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from '../../services/departments/department.service';
 import { Department } from '../../services/models';
+import {
+  MatDialog,
+  MatDialogConfig
+} from "@angular/material";
+import { DialogBodyComponent } from '../../shared/dialog-body/dialog-body.component';
 
 
 @Component({
@@ -17,9 +22,11 @@ export class CreateEditDepartmentComponent implements OnInit {
   department: Department;
 
   departmentForm: FormGroup
-  constructor(private route: ActivatedRoute, private departmentService: DepartmentService) { }
+  constructor(private dialog: MatDialog , private route: ActivatedRoute, private departmentService: DepartmentService) { }
 
   ngOnInit() {
+
+
     this.route.params.subscribe((params) => {
       if (params["parentGuid"]) {
         this.parentDepartment = params["parentGuid"];
@@ -43,18 +50,40 @@ export class CreateEditDepartmentComponent implements OnInit {
       'departmentNameAr': departmentNameArControl
     });
   }
-
+  successMessages: string[];
+  errorMessages: string[];
   onSubmit() {
+  
     if (this.departmentForm.valid) {
       if (!this.editMode) {
         this.departmentService.add(
           this.departmentForm.value['departmentName'],
           this.departmentForm.value['departmentNameAr'],
-          this.parentDepartment);
+          this.parentDepartment).subscribe(res => {
+            if (res["res"] == true) {
+              this.successMessages = res["messages"];
+              this.alertSuccess();
+            } 
+          },
+          error => {
+            this.errorMessages = error["messages"];
+            this.alertErrors();
+          }
+        );
       } else {
         //this.departmentService.edit(this.departmentForm.value['departmentName'], this.departmentGuid);
       }
     }
+  }
+  alertSuccess() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { type: "success",data:this.successMessages };
+    this.dialog.open(DialogBodyComponent, dialogConfig);
+  }
+  alertErrors() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { type: "error", data: this.errorMessages };
+    this.dialog.open(DialogBodyComponent, dialogConfig);
   }
   deleteDepartment() {
     let res = confirm("are you sure you want to delete this department !?");

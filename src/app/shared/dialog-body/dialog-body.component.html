@@ -1,0 +1,17 @@
+<h2 mat-dialog-title >
+  <span class="label label-danger" *ngIf="data.type=='error'">Error</span>
+  <span class="label label-info" *ngIf="data.type=='info'">Info</span>
+  <span class="label label-success" *ngIf="data.type=='success'">success</span>
+
+</h2>
+
+<mat-dialog-content>
+  <div *ngIf="data && data.data">
+    <p *ngFor="let item of data.data">{{item}}</p>
+  </div>
+  <p> </p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+</mat-dialog-actions>

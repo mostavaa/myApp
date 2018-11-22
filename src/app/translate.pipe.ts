@@ -9,13 +9,15 @@ export class TranslatePipe implements PipeTransform {
     en: {
       hello: 'hello',
       le: 'LE',
-      rightsReserved:'all rights reserved'
+      rightsReserved: 'all rights reserved',
+      logout: "logout"
+
     },
     ar: {
       hello: 'مرحبا',
       le: 'جنيه',
-      rightsReserved: 'جميع الحقوق محفوظة'
-
+      rightsReserved: 'جميع الحقوق محفوظة',
+      logout:"تسجيل الخروج"
     }
   }
   constructor(private authService: AuthService) {

@@ -24,3 +24,5 @@ E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\s
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\serverApp.csproj.CopyComplete
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\serverApp.dll
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\serverApp.pdb
+E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\serverApp.Resources.Controllers.Auth.resources
+E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Debug\netcoreapp2.1\serverApp.Resources.Controllers.Auth.ar-EG.resources

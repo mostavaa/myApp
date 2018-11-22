@@ -47,7 +47,6 @@ export class HttpService {
           }
         }
       }
-      debugger;
       requestParams = requestParams.append("lang", this.authService.getLanguage())
 
       const requestOptions = {

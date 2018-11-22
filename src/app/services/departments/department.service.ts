@@ -1,12 +1,14 @@
 import { Department } from './../../services/models';
 import { HttpService } from '../http.service';
 import { Constants } from '../constants';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Subject, Observable, throwError } from 'rxjs';
+import { AuthService } from '../auth.service';
 @Injectable()
 export class DepartmentService {
   private departments: Department[]
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private authService: AuthService) {
 
     this.departments = [
       {
@@ -44,7 +46,27 @@ export class DepartmentService {
 
   }
   getDepartments() {
-    return this.departments.slice();
+    return this.httpService.invoke({
+      method: 'GET',
+      url: Constants.websiteEndPoint,
+      path: 'Departments'
+    }).pipe(
+      map((res) => {
+        if (res["status"] == true) {
+          if (res["data"]) {
+            let departments: Department[] = [];
+            for (var i = 0; i < res.data.length; i++) {
+              departments.push(<Department>res.data[i]);
+            }
+            return departments;
+          }
+        }
+        return [];
+      }),
+      catchError((error) => {
+        return [];
+      })
+    );
   }
   getDepartmentByGuid(guid: string): Department {
     return this.getDepartmentByGuidRecursive(this.departments, guid);
@@ -58,7 +80,7 @@ export class DepartmentService {
     }
     return null;
   }
-
+  departmentsSubject: Subject<Department[]> = new Subject<Department[]>();
   add(name: string, nameAr: string, parent: string) {
     let node = {
       DeptName: name,
@@ -77,15 +99,26 @@ export class DepartmentService {
       query: parent != "0" ? query : null
     }).pipe(
       map((res) => {
-      debugger;
-        console.log("map");
-        console.log(res);
-      })).subscribe(success => {
-        console.log("success");
-        console.log(success);
-      }, error => {
-        console.log("error");
-        console.log(error);
+        debugger;
+        if (res["status"] == true) {
+          if (res["data"]) {
+            this.departments.push({
+              name: name,
+              nameAr: nameAr,
+              children: [],
+              guid: res.data.id,
+            });
+            this.getDepartments().subscribe(depts => {
+              this.departments = depts;
+              this.departmentsSubject.next(this.departments);
+            });
+          }
+          if (res["messages"]) {
+            return { res: true, messages: <string[]>res.messages };
+          }
+        }
+        return <any>{ res: false, messages: <string[]>[] };
       })
+      );
   }
 }

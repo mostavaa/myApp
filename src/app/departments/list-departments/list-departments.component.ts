@@ -36,6 +36,7 @@ export class ListDepartmentsComponent implements OnInit {
   node: Department;
   departments: Department[]
   routeDepartmentGuid: string;
+  lang: string = "en";
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -44,13 +45,19 @@ export class ListDepartmentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService.departmentsSubject.subscribe(depts => {
+      this.departments = depts;
+    })
+    this.departmentService.getDepartments().subscribe((res: Department[]) => {
+      this.departments = res;
+    })
     this.node = {
       name: "",
       children: this.departments,
       guid: '',
       parentGuid: ''
     };
+    this.lang = this.authService.getLanguage();
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         if (val.state.root.firstChild.params["departmentGuid"]) {
@@ -79,13 +86,16 @@ export class ListDepartmentsComponent implements OnInit {
       this.departments = department.children;
       this.node = department;
     } else {
-      this.departments = this.departmentService.getDepartments();
-      this.node = {
-        name: "",
-        children: this.departments,
-        guid: '',
-        parentGuid: ''
-      };
+      this.departmentService.getDepartments().subscribe((res: Department[]) => {
+        this.departments = res;
+        this.node = {
+          name: "",
+          children: this.departments,
+          guid: '',
+          parentGuid: ''
+        };
+      })
+
     }
   }
   navigateToChild(guid: string) {

@@ -7,10 +7,10 @@
   </a>
 </li>
 <li [ngClass]="{'active':department.guid==routeDepartmentGuid}" [@slideInOut] *ngFor="let department of departments">
-  <a data-toggle="tooltip" [title]="department.name">
+  <a data-toggle="tooltip" [title]="this.lang=='en'?department.name:department.nameAr">
     <span>
       <span style="cursor:pointer" (click)="navigateToDepartment(department.guid)">
-        {{department.name | minStrLength:15 }}
+        {{this.lang=='en'?department.name:department.nameAr | minStrLength:15 }}
       </span>
 
       <!--<span  style="cursor: pointer;float:right;font-size: 14px;" class="badge" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0">

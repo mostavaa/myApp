@@ -23,7 +23,7 @@
 
       <app-list-departments></app-list-departments>
       <li *ngIf="isLogged()" (click)="logout()">
-        <a style="cursor:pointer" >logout</a>
+        <a style="cursor:pointer">{{'logout'|translate}}</a>
       </li>
       <li  >
         <a style="cursor:pointer" (click)="changeLanguage()">{{lang}}</a>

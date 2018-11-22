@@ -17,9 +17,12 @@ export class TokenInterceptor implements HttpInterceptor {
             switch ((<HttpErrorResponse>err).status) {
               case 401:
                 return this.handle401Error(request, next);
-              case 400:
-                this.authService.logout()
-                return <any>null;
+              default:
+                if (err.error["messages"]) {
+                  return throwError(<any>{ res: false, messages: <string[]>err.error.messages });
+                }
+                return throwError(<any>{ res: false, messages: <string[]>[] });
+
             }
           } else {
             return throwError(err);

@@ -22,6 +22,8 @@ import { MinStrLengthPipe } from './min-str-length.pipe';
 import { TranslatePipe } from './translate.pipe';
 import { AuthGuard } from './services/guards/auth.guard';
 import { HttpService } from './services/http.service';
+import { DialogBodyComponent } from './shared/dialog-body/dialog-body.component';
+import { MatDialogModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,13 +37,17 @@ import { HttpService } from './services/http.service';
     FooterComponent,
     MinStrLengthPipe,
     TranslatePipe,
+    DialogBodyComponent,
   ],
+  entryComponents: [DialogBodyComponent]
+  ,
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [
     HttpService,

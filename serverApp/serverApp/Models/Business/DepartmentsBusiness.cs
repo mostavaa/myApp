@@ -8,85 +8,89 @@ using Microsoft.Extensions.Localization;
 
 namespace serverApp.Models.Business
 {
-    public interface IDepartmentsBusiness
+  public interface IDepartmentsBusiness
+  {
+    IUnitOfWork UnitOfWork { get; set; }
+    IStringLocalizer Localizer { get; }
+    List<string> Errors { get; set; }
+    bool IsValid(Department department, Guid? parentDepartmentGuid);
+    bool CanDeleteDepartment(Guid guid, out long departmentId);
+  }
+  public class DepartmentsBusiness : IDepartmentsBusiness
+  {
+    public IUnitOfWork UnitOfWork { get; set; }
+    public IStringLocalizer Localizer { get; }
+
+    public DepartmentsBusiness(IUnitOfWork unitOfWork, IStringLocalizer<DepartmentsController> localizer)
     {
-        IUnitOfWork UnitOfWork { get; set; }
-        IStringLocalizer Localizer { get; }
-        List<string> Errors { get; set; }
-        bool IsValid(Department department, Guid? parentDepartmentGuid);
-        bool CanDeleteDepartment(Guid guid , out long departmentId);
+      UnitOfWork = unitOfWork;
+      Localizer = localizer;
+      Errors = new List<string>();
     }
-    public class DepartmentsBusiness:IDepartmentsBusiness
+
+    public List<string> Errors { get; set; }
+    public bool IsValid(Department department, Guid? parentDepartmentGuid)
     {
-        public IUnitOfWork UnitOfWork { get; set; }
-        public IStringLocalizer Localizer { get; }
+      Errors = new List<string>();
+      if (!string.IsNullOrEmpty(department.DeptName) && department.DeptName.Length > 2 && !string.IsNullOrEmpty(department.DeptNameAr) && department.DeptNameAr.Length > 2)
+      {
 
-        public DepartmentsBusiness(IUnitOfWork unitOfWork , IStringLocalizer<DepartmentsController> localizer)
+        if (parentDepartmentGuid != null && parentDepartmentGuid != Guid.Empty)
         {
-            UnitOfWork = unitOfWork;
-            Localizer = localizer;
-            Errors = new List<string>();
-        }
+          var parentDepartment = UnitOfWork.DepartmentRepository.Get(o => o.Guid == parentDepartmentGuid)
+              .FirstOrDefault();
 
-        public List<string> Errors { get; set; }
-        public bool IsValid(Department department, Guid? parentDepartmentGuid)
-        {
-            Errors = new List<string>();
-            if (!string.IsNullOrEmpty(department.DeptName) && department.DeptName.Length > 2)
+          if (parentDepartment != null)
+          {
+            if (parentDepartment.Departments.Any(o => o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr)
+            )
             {
-
-                if (parentDepartmentGuid != null && parentDepartmentGuid != Guid.Empty)
-                {
-                    var parentDepartment = UnitOfWork.DepartmentRepository.Get(o => o.Guid == parentDepartmentGuid)
-                        .FirstOrDefault();
-
-                    if (parentDepartment != null)
-                    {
-                        if (parentDepartment.Departments.Any(o => o.DeptName.ToLower() == department.DeptName.ToLower())
-                        )
-                        {
-                            Errors.Add(Localizer["DepartmentExistError"]);
-                        }
-                        else
-                        {
-                            department.ParentDepartmentId = parentDepartment.Id;
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        Errors.Add(Localizer["NoParentDepartmentFound"]);
-                    }
-                }
-                else
-                {
-                    return true;
-                }
+              Errors.Add(Localizer["DepartmentExistError"]);
             }
-            else
-            {
-                Errors.Add(Localizer["NameIsNullOrEmpty"]);
-            }
-            return false;
-        }
-
-        public bool CanDeleteDepartment(Guid guid , out long departmentId)
-        {
-            departmentId = 0;
-            var department = UnitOfWork.DepartmentRepository.Get(o => o.Guid == guid)
-                .FirstOrDefault();
-            if (department == null)
-            {
-                Errors.Add(Localizer["NoDepartmentExist"]);
-                return false;
-            }
-            if (UnitOfWork.DepartmentRepository.Get().Any(o => o.ParentDepartmentId == department.Id && o.IsActive))
-            {
-                Errors.Add(Localizer["DepartmentHasChildrenError"]);
-                return false;
-            }
-            departmentId = department.Id;
+            department.ParentDepartmentId = parentDepartment.Id;
             return true;
+          }
+          else
+          {
+            Errors.Add(Localizer["NoParentDepartmentFound"]);
+          }
         }
+        else
+        {
+          if (UnitOfWork.DepartmentRepository.Get(o => o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr).Any())
+          {
+            Errors.Add(Localizer["DepartmentExistError"]);
+          }
+          else
+          {
+            return true;
+          }
+        }
+      }
+      else
+      {
+        Errors.Add(Localizer["NameIsNullOrEmpty"]);
+      }
+      return false;
     }
+
+    public bool CanDeleteDepartment(Guid guid, out long departmentId)
+    {
+      departmentId = 0;
+      var department = UnitOfWork.DepartmentRepository.Get(o => o.Guid == guid)
+          .FirstOrDefault();
+      if (department == null)
+      {
+        Errors.Add(Localizer["NoDepartmentExist"]);
+        return false;
+      }
+      if (UnitOfWork.DepartmentRepository.Get().Any(o => o.ParentDepartmentId == department.Id && o.IsActive))
+      {
+        Errors.Add(Localizer["DepartmentHasChildrenError"]);
+        return false;
+      }
+      departmentId = department.Id;
+      return true;
+    }
+  }
 }
