@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from '../../services/departments/department.service';
 import { Department } from '../../services/models';
-import {
-  MatDialog,
-  MatDialogConfig
-} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import { DialogBodyComponent } from '../../shared/dialog-body/dialog-body.component';
 
 
@@ -22,7 +19,7 @@ export class CreateEditDepartmentComponent implements OnInit {
   department: Department;
 
   departmentForm: FormGroup
-  constructor(private dialog: MatDialog , private route: ActivatedRoute, private departmentService: DepartmentService) { }
+  constructor(private router: Router, private dialog: MatDialog, private route: ActivatedRoute, public departmentService: DepartmentService) { }
 
   ngOnInit() {
 
@@ -36,9 +33,13 @@ export class CreateEditDepartmentComponent implements OnInit {
         this.departmentGuid = params["departmentGuid"];
         let department = this.departmentService.getDepartmentByGuid(this.departmentGuid);// it may not work and it needs a subscription
         if (department)
-          this.department = department;
+          department.subscribe(dept => {
+            this.department = dept;
+            this.initForm();
+          });
       }
       this.initForm();
+
     })
   }
 
@@ -53,7 +54,7 @@ export class CreateEditDepartmentComponent implements OnInit {
   successMessages: string[];
   errorMessages: string[];
   onSubmit() {
-  
+
     if (this.departmentForm.valid) {
       if (!this.editMode) {
         this.departmentService.add(
@@ -62,34 +63,67 @@ export class CreateEditDepartmentComponent implements OnInit {
           this.parentDepartment).subscribe(res => {
             if (res["res"] == true) {
               this.successMessages = res["messages"];
-              this.alertSuccess();
-            } 
+              this.openDialog({ type: "success", data: this.successMessages }).afterClosed().subscribe(result => {
+                location.reload();
+              });
+            }
+          },
+            error => {
+              this.errorMessages = error["messages"];
+              this.alertErrors();
+            }
+          );
+      } else {
+        this.departmentService.edit(
+          this.departmentForm.value['departmentName'],
+          this.departmentForm.value['departmentNameAr'],
+          this.departmentGuid).subscribe(res => {
+            if (res["res"] == true) {
+              this.successMessages = res["messages"];
+              this.openDialog({ type: "success", data: this.successMessages }).afterClosed().subscribe(result => {
+                location.reload();
+              });
+            }
+          },
+            error => {
+              this.errorMessages = error["messages"];
+              this.alertErrors();
+            }
+          );
+      }
+    }
+  }
+  openDialog(data: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = data;
+    let dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);
+    return dialogRef;
+  }
+
+  alertErrors() {
+    this.openDialog({ type: "error", data: this.errorMessages });
+  }
+  deleteDepartment() {
+    this.openDialog({ isConfirm: true, type: "info", data: ["are you sure you want to delete this department !?"] }).afterClosed().subscribe(result => {
+      if (result && result == true) {
+        debugger;
+        this.departmentService.delete(this.departmentGuid).subscribe(
+          res => {
+            if (res["status"] == true) {
+              this.successMessages = res["messages"];
+              this.openDialog({ type: "success", data: this.successMessages }).afterClosed().subscribe(result => {
+                this.router.navigate(["/"]);
+              });
+            }
           },
           error => {
             this.errorMessages = error["messages"];
             this.alertErrors();
-          }
-        );
+          });
       } else {
-        //this.departmentService.edit(this.departmentForm.value['departmentName'], this.departmentGuid);
+
       }
-    }
-  }
-  alertSuccess() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { type: "success",data:this.successMessages };
-    this.dialog.open(DialogBodyComponent, dialogConfig);
-  }
-  alertErrors() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { type: "error", data: this.errorMessages };
-    this.dialog.open(DialogBodyComponent, dialogConfig);
-  }
-  deleteDepartment() {
-    let res = confirm("are you sure you want to delete this department !?");
-    if (res) {
-      //this.departmentService.delete(this.departmentGuid);
-    }
+    });
   }
 
 }

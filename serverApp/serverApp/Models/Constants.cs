@@ -7,8 +7,8 @@ namespace serverApp.Models
 {
     public class Constants
     {
-        public const string ValidIssuer = "http://localhost:4200";
-        public const string ValidAudience = "http://localhost:4200";
+        public const string ValidIssuer = "http://localhost:44344";
+        public const string ValidAudience = "http://localhost:44344";
         public const string SymmetricSecurityKey = "Mostava@Hamed@Hassan";
 
         public const int pageSize = 10;

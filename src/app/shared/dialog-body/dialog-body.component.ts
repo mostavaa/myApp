@@ -20,4 +20,7 @@ export class DialogBodyComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+  confirm(res: boolean) {
+    this.dialogRef.close(res);
+  }
 }

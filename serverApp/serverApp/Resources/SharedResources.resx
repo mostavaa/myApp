@@ -123,6 +123,9 @@
   <data name="DeletedSuccessfully" xml:space="preserve">
     <value>Deleted Successfully</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
   <data name="ServerError" xml:space="preserve">
     <value>Server Error</value>
   </data>

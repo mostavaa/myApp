@@ -1,4 +1,4 @@
-<li [ngClass]="{'active':node.guid==routeDepartmentGuid}" (click)="navigateToChild(node.parentGuid)" >
+<li [ngClass]="{'active':node.guid==routeDepartmentGuid}" (click)="navigateToDepartment(node.parentGuid)" >
   <a data-toggle="tooltip" [title]="node.name">
     <span style="cursor: pointer;" *ngIf="node && node.guid!=''" ><i class="fa fa-angle-left" aria-hidden="true"></i></span>
     <span style="cursor:pointer">

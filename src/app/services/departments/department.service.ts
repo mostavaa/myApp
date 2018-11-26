@@ -10,38 +10,7 @@ export class DepartmentService {
   private departments: Department[]
   constructor(private httpService: HttpService, private authService: AuthService) {
 
-    this.departments = [
-      {
-        name: "root1 department",
-        guid: "1",
-        parentGuid: '',
-        children: [
-          {
-            name: "sub1 department of root1",
-            guid: "11",
-            parentGuid: "1",
-            children: [{
-              name: "sub11 department of sub1",
-              guid: "111",
-              parentGuid: "11",
-              children: []
-            }]
-          },
-          {
-            name: "sub2 department of root1",
-            guid: "12",
-            parentGuid: "1",
-            children: []
-          },
-        ]
-      },
-      {
-        name: "root2 department",
-        guid: "2",
-        parentGuid: "",
-        children: []
-      }
-    ];
+    this.departments = []
 
 
   }
@@ -68,26 +37,31 @@ export class DepartmentService {
       })
     );
   }
-  getDepartmentByGuid(guid: string): Department {
-    return this.getDepartmentByGuidRecursive(this.departments, guid);
+  getDepartmentByGuid(guid: string) {
+    return this.httpService.invoke({
+      method: 'GET',
+      url: Constants.websiteEndPoint,
+      path: 'Departments/get',
+      query: { id: guid }
+    }).pipe(
+      map((res) => {
+        if (res["status"] == true) {
+          if (res["data"]) {
+            return <Department>res.data;
+          }
+        }
+        return <Department>{};
+      }),
+    )
+
   }
-  private getDepartmentByGuidRecursive(departments: Department[], guid: string): Department {
-    for (let index = 0; index < departments.length; index++) {
-      const element = departments[index];
-      if (element.guid == guid)
-        return element;
-      return this.getDepartmentByGuidRecursive(element.children, guid);
-    }
-    return null;
-  }
-  departmentsSubject: Subject<Department[]> = new Subject<Department[]>();
   add(name: string, nameAr: string, parent: string) {
     let node = {
       DeptName: name,
       DeptNameAr: nameAr
     }
     let query;
-    if (parent == "0")
+    if (parent != "0")
       query = {
         parentDepartmentGuid: parent
       }
@@ -99,7 +73,6 @@ export class DepartmentService {
       query: parent != "0" ? query : null
     }).pipe(
       map((res) => {
-        debugger;
         if (res["status"] == true) {
           if (res["data"]) {
             this.departments.push({
@@ -110,7 +83,6 @@ export class DepartmentService {
             });
             this.getDepartments().subscribe(depts => {
               this.departments = depts;
-              this.departmentsSubject.next(this.departments);
             });
           }
           if (res["messages"]) {
@@ -119,6 +91,59 @@ export class DepartmentService {
         }
         return <any>{ res: false, messages: <string[]>[] };
       })
-      );
+    );
+  }
+  delete(id: string) {
+    let body = {
+      id: id
+    };
+    return this.httpService.invoke({
+      method: "POST",
+      url: Constants.websiteEndPoint,
+      path: 'Departments' + '/delete',
+      query: body
+    }).pipe(map(res => {
+      if (res["status"] == true) {
+        if (res["messages"]) {
+          this.getDepartments().subscribe(depts => {
+            this.departments = depts;
+          });
+          return { res: true, messages: <string[]>res.messages };
+        }
+      }
+      if (res["messages"])
+        return { res: false, messages: <string[]>res.messages };
+      return { res: false, messages: <string[]>[] };
+      }));
+  }
+  edit(name: string, nameAr: string, id: string) {
+    let body = {
+      DeptName: name,
+      DeptNameAr: nameAr
+    };
+    debugger;
+    return this.httpService.invoke({
+      method: "POST",
+      url: Constants.websiteEndPoint,
+      path: 'Departments' + '/update',
+      body: body,
+      query: {
+        id: id
+      }
+    }).pipe(
+      map(res => {
+        if (res["status"] == true) {
+          if (res["messages"]) {
+            this.getDepartments().subscribe(depts => {
+              this.departments = depts;
+            });
+            return { res: true, messages: <string[]>res.messages };
+          }
+        }
+        if (res["messages"])
+          return { res: false, messages: <string[]>res.messages };
+      return { res: false, messages: <string[]>[] };
+      })
+    )
   }
 }

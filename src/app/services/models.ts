@@ -24,7 +24,9 @@ export class Department {
 
 export class Product {
   name: string;
+  nameAr: string;
   description: string;
+  descriptionAr: string;
   likes: number;
   price: number;
   departmentGuid: string;

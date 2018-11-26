@@ -25,7 +25,7 @@ import { AuthService } from '../../services/auth.service';
       ]),
       transition(':leave', [
         animate('1s ease', style({
-          position:'absolute',
+          position: 'absolute',
           opacity: 0,
           transform: ' translateX(-400px)',
         }))
@@ -33,7 +33,12 @@ import { AuthService } from '../../services/auth.service';
     ])]
 })
 export class ListDepartmentsComponent implements OnInit {
-  node: Department;
+  node: Department = {
+    name: "",
+    children: [],
+    guid: '',
+    parentGuid: ''
+  };
   departments: Department[]
   routeDepartmentGuid: string;
   lang: string = "en";
@@ -45,33 +50,41 @@ export class ListDepartmentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.departmentService.departmentsSubject.subscribe(depts => {
-      this.departments = depts;
-    })
-    this.departmentService.getDepartments().subscribe((res: Department[]) => {
-      this.departments = res;
-    })
-    this.node = {
-      name: "",
-      children: this.departments,
-      guid: '',
-      parentGuid: ''
-    };
+
     this.lang = this.authService.getLanguage();
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         if (val.state.root.firstChild.params["departmentGuid"]) {
+          debugger;
           this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
-          this.routeDepartmentGuid = val.state.root.firstChild.params["departmentGuid"];
+          if (val.state.root.firstChild.params["departmentGuid"] == null) {
+            this.getAllDepartments();
+          }
+        } else {
+          this.getAllDepartments();
         }
       }
     });
+  }
+  getAllDepartments() {
+    this.departmentService.getDepartments().subscribe((res: Department[]) => {
+      this.departments = res;
+      this.node = {
+        name: "",
+        children: [],
+        guid: '',
+        parentGuid: ''
+      };
+    })
   }
   isLogged() {
     return this.authService.isLogged();
   }
   navigateToDepartment(guid) {
-    this.router.navigate(['/products', guid]);
+    if (guid == null)
+      this.router.navigate(['/products']);
+    else
+      this.router.navigate(['/products', guid]);
   }
   navigateToAdd(guid: string) {
     this.router.navigate(['createDepartment', guid, 'create']);
@@ -81,24 +94,21 @@ export class ListDepartmentsComponent implements OnInit {
 
   }
   getDepartmentByGuid(guid: string) {
-    let department = this.departmentService.getDepartmentByGuid(guid);
-    if (department) {
-      this.departments = department.children;
-      this.node = department;
-    } else {
-      this.departmentService.getDepartments().subscribe((res: Department[]) => {
-        this.departments = res;
-        this.node = {
-          name: "",
-          children: this.departments,
-          guid: '',
-          parentGuid: ''
-        };
-      })
+    if (guid != null && guid != "") {
+      let department = this.departmentService.getDepartmentByGuid(guid);
 
+      if (department) {
+        department.subscribe(dept => {
+          this.departments = dept.children;
+          this.node = dept;
+
+        });
+      }
+    } else {
+      this.navigateToDepartment(null);
     }
   }
-  navigateToChild(guid: string) {
-    this.getDepartmentByGuid(guid);
-  }
+  //navigateToChild(guid: string) {
+  //  this.getDepartmentByGuid(guid);
+  //}
 }

@@ -8,12 +8,28 @@
       </span>
     </div>
     <div class="form-group">
+      <input type="text" formControlName="NameAr" placeholder="Arabic Name" class="form-control">
+      <span style="color:red" *ngIf="!productForm.get('NameAr').valid && productForm.get('NameAr').touched">
+        <span *ngIf="productForm.get('NameAr').errors['required']">This Field Is Required</span>
+        <span *ngIf="productForm.get('NameAr').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
+      </span>
+    </div>
+    <div class="form-group">
       <textarea type="text" formControlName="Description" placeholder="Description" class="form-control"></textarea>
       <span style="color:red" *ngIf="!productForm.get('Description').valid && productForm.get('Description').touched">
         <span *ngIf="productForm.get('Description').errors['required']">This Field Is Required</span>
         <span *ngIf="productForm.get('Description').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
       </span>
     </div>
+
+    <div class="form-group">
+      <textarea type="text" formControlName="DescriptionAr" placeholder="Arabic Description" class="form-control"></textarea>
+      <span style="color:red" *ngIf="!productForm.get('DescriptionAr').valid && productForm.get('DescriptionAr').touched">
+        <span *ngIf="productForm.get('DescriptionAr').errors['required']">This Field Is Required</span>
+        <span *ngIf="productForm.get('DescriptionAr').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
+      </span>
+    </div>
+
     <div class="form-group">
       <input type="number" formControlName="Price" placeholder="Price" class="form-control">
       <span style="color:red" *ngIf="!productForm.get('Price').valid && productForm.get('Price').touched">

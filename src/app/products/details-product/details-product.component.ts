@@ -30,10 +30,13 @@ export class DetailsProductComponent implements OnInit {
     return this.authService.isLogged();
   }
   initProduct() {
-    let product = this.productService.getByGuid(this.guid);
-    if (product) {
-      this.product = product;
-    }
+    let product = this.productService.getByGuid(this.guid).subscribe(res => {
+      if (res && res["status"] && res.status == true) {
+        if (res["data"]) {
+          this.product = <Product>res.data;
+        }
+      }
+    });
   }
 
   navigateToEdit() {

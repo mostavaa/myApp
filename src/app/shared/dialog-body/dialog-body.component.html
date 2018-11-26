@@ -13,5 +13,9 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
+  <div *ngIf="data.isConfirm">
+    <button class="mat-raised-button" (click)="confirm(true)">Yes</button>
+    <button class="mat-raised-button" (click)="confirm(false)">No</button>
+  </div>
   <button class="mat-raised-button" (click)="close()">Close</button>
 </mat-dialog-actions>

@@ -42,7 +42,7 @@ namespace serverApp.Models.Business
 
           if (parentDepartment != null)
           {
-            if (parentDepartment.Departments.Any(o => o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr)
+            if (parentDepartment.Departments.Any(o => (o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr) && o.Id!=department.Id)
             )
             {
               Errors.Add(Localizer["DepartmentExistError"]);
@@ -57,7 +57,7 @@ namespace serverApp.Models.Business
         }
         else
         {
-          if (UnitOfWork.DepartmentRepository.Get(o => o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr).Any())
+          if (UnitOfWork.DepartmentRepository.Get(o => (o.DeptName.ToLower() == department.DeptName.ToLower() || o.DeptNameAr == department.DeptNameAr) && o.Id != department.Id).Any())
           {
             Errors.Add(Localizer["DepartmentExistError"]);
           }

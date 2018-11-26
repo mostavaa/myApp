@@ -16,6 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             switch ((<HttpErrorResponse>err).status) {
               case 401:
+                debugger;
                 return this.handle401Error(request, next);
               default:
                 if (err.error["messages"]) {
@@ -39,7 +40,9 @@ export class TokenInterceptor implements HttpInterceptor {
       this.tokenSubject.next(null);
       return this.authService.refreshToken({refreshToken:this.authService.getRefreshToken()})
         .pipe(
-          switchMap((currentUser:ICurrentUser) => {
+        switchMap((currentUser: ICurrentUser) => {
+          debugger;
+
             if (currentUser.accessToken) {
               this.tokenSubject.next(currentUser.accessToken);
               return next.handle(this.addTokenToRequest(request, currentUser.accessToken));
@@ -58,7 +61,8 @@ export class TokenInterceptor implements HttpInterceptor {
       return this.tokenSubject
         .pipe(filter(token => token != null),
           take(1),
-          switchMap(token => {
+        switchMap(token => {
+          debugger;
             return next.handle(this.addTokenToRequest(request, token));
           }));
     }

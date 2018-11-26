@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading;
 using System.Globalization;
 using serverApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace serverApp.Controllers
 {
@@ -39,8 +40,9 @@ namespace serverApp.Controllers
     }
     //api/departments/delete/guid
     [Route("delete")]
-    [HttpPut]
-    public JsonResult DeleteDepartment([FromBody]Guid id)
+    [HttpPost]
+    [Authorize]
+    public IActionResult DeleteDepartment([FromQuery]Guid id)
     {
       long departmentId;
       if (DepartmentsBusiness.CanDeleteDepartment(id, out departmentId))
@@ -52,25 +54,26 @@ namespace serverApp.Controllers
         }
         catch (Exception)
         {
-          return Json(new { status = 0, messages = new string[] { SharedLocalizer["ServerError"] } });
+          return BadRequest(new ReturnResponse { status = false, messages = new string[] { SharedLocalizer["ServerError"] } });
         }
-        return Json(new { status = 1, messages = new string[] { SharedLocalizer["DeletedSuccessfully"] } });
-
+        return Ok(new ReturnResponse { status = true, messages = new string[] { SharedLocalizer["DeletedSuccessfully"] } });
       }
-      return Json(new { status = 0, messages = DepartmentsBusiness.Errors });
+      return BadRequest(new ReturnResponse { status = false, messages = DepartmentsBusiness.Errors.ToArray() });
     }
 
     //api/departments/update/guid
     [Route("update")]
     [HttpPost]
-    public JsonResult UpdateDepartment([FromQuery]Guid id, [FromBody] string departmentName)
+    [Authorize]
+    public IActionResult UpdateDepartment([FromQuery]Guid id, [FromBody] Department departmentObj)
     {
       var department = UnitOfWork.DepartmentRepository.Get(o => o.Guid == id).Include(o => o.ParentDepartment).FirstOrDefault();
       if (department == null)
       {
-        return Json(new { status = 0, messages = new string[] { Localizer["NoDepartmentExist"] } });
+        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { Localizer["NoDepartmentExist"] } });
       }
-      department.DeptName = departmentName;
+      department.DeptName = departmentObj.DeptName;
+      department.DeptNameAr = departmentObj.DeptNameAr;
       if (DepartmentsBusiness.IsValid(department, department.ParentDepartmentId == null ? Guid.Empty : department.ParentDepartment.Guid))
       {
         try
@@ -79,17 +82,18 @@ namespace serverApp.Controllers
         }
         catch (Exception)
         {
-          return Json(new { status = 0, messages = new string[] { SharedLocalizer["ServerError"] } });
+          return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["ServerError"] } });
         }
-        return Json(new { status = 1, messages = new string[] { SharedLocalizer["UpdatedSuccessfully"] } });
+        return Ok(new ReturnResponse { status = true, messages = new string[] { SharedLocalizer["UpdatedSuccessfully"] } });
       }
-      return Json(new { status = 0, messages = DepartmentsBusiness.Errors });
+      return BadRequest(new ReturnResponse()  { status = false, messages = DepartmentsBusiness.Errors.ToArray() });
 
     }
 
     //api/departments/add?parentDepartmentGuid=...&DeptName=...
     [Route("add")]
     [HttpPost]
+    [Authorize]
     public IActionResult AddNewDepartment([FromBody] Department department, [FromQuery] Guid? parentDepartmentGuid)
     {
       if (DepartmentsBusiness.IsValid(department, parentDepartmentGuid))
@@ -128,18 +132,56 @@ namespace serverApp.Controllers
     private object GetDepartmentChildren(Department department)
     {
       //stop condition
-      if (!UnitOfWork.DepartmentRepository.Get(o => o.Departments.Any(d => d.IsActive)).Any())
+      if (!UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == department.Id && o.IsActive).Any())
       {
-       return new { name = department.DeptName, nameAr = department.DeptNameAr, department.NumberOfProducts, guid = department.Guid, children=new { } };
+        if (department.ParentDepartment != null)
+        {
+          return new { name = department.DeptName, nameAr = department.DeptNameAr, department.NumberOfProducts, guid = department.Guid, parentGuid = department.ParentDepartment.Guid, children = new { } };
+        }
+        else
+        {
+          return new { name = department.DeptName, nameAr = department.DeptNameAr, department.NumberOfProducts, guid = department.Guid, children = new { } };
+        }
       }
       var children = new List<object>();
-      foreach (var subDept in UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == department.Id && o.IsActive))
+      foreach (var subDept in UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == department.Id && o.IsActive).Include(o => o.ParentDepartment))
       {
         children.Add(GetDepartmentChildren(subDept));
       }
-      return new { name = department.DeptName, nameAr = department.DeptNameAr, parentGuid = department.ParentDepartment.Guid, department.NumberOfProducts, guid = department.Guid, children };
+      if (department.ParentDepartment != null)
+        return new { name = department.DeptName, nameAr = department.DeptNameAr, parentGuid = department.ParentDepartment.Guid, department.NumberOfProducts, guid = department.Guid, children };
+      else
+        return new { name = department.DeptName, nameAr = department.DeptNameAr, department.NumberOfProducts, guid = department.Guid, children };
     }
-
-
+    [Route("get")]
+    public IActionResult GetDepartment([FromQuery]Guid id)
+    {
+      var department = UnitOfWork.DepartmentRepository.Get(o => o.Guid == id).Include(o => o.ParentDepartment).Include(o => o.Departments).FirstOrDefault();
+      if (department != null)
+      {
+        return Ok(new ReturnResponse()
+        {
+          status = true,
+          data =
+         new
+         {
+           name = department.DeptName,
+           nameAr = department.DeptNameAr,
+           parentGuid = department.ParentDepartment?.Guid,
+           department.NumberOfProducts,
+           guid = department.Guid,
+           children = department.Departments.Select(o => new
+           {
+             name = o.DeptName,
+             nameAr = o.DeptNameAr,
+             parentGuid = department.Guid,
+             o.NumberOfProducts,
+             guid = o.Guid
+           }).ToList()
+         }
+        });
+      }
+      return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["NotFound"] } });
+    }
   }
 }
