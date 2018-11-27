@@ -55,7 +55,7 @@ export class ListDepartmentsComponent implements OnInit {
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         if (val.state.root.firstChild.params["departmentGuid"]) {
-          debugger;
+          this.routeDepartmentGuid = val.state.root.firstChild.params["departmentGuid"];
           this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
           if (val.state.root.firstChild.params["departmentGuid"] == null) {
             this.getAllDepartments();

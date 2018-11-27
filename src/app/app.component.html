@@ -1,14 +1,14 @@
-
-
-<div class="row m-0 p-1 main-content-wrapper d-flex clearfix">
-  <app-headers></app-headers>
-
-  <div class="col-md-8 products-catagories-area clearfix">
-    <div class="amado-pro-catagory clearfix">
-      <router-outlet></router-outlet>
+<div class="content">
+  <div class="container">
+    <div class="row bar">
+      <div class="col-md-3">
+        <app-headers></app-headers>
+      </div>
+      <div class="col-md-9">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
-
-<app-footer></app-footer>
+<!--<app-footer></app-footer>-->
 <!--{{'hello'|translate}}-->

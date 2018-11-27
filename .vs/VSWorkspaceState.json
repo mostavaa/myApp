@@ -2,17 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
     "\\src\\app\\departments",
-    "\\src\\app\\departments\\create-edit-department",
     "\\src\\app\\departments\\list-departments",
-    "\\src\\app\\products",
     "\\src\\app\\products\\create-edit-product",
-    "\\src\\app\\products\\details-product",
     "\\src\\app\\services",
-    "\\src\\app\\services\\departments",
-    "\\src\\app\\services\\products"
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\headers",
+    "\\src\\assets",
+    "\\src\\assets\\vendor"
   ],
-  "SelectedNode": "\\src\\app\\departments\\list-departments\\list-departments.component.ts",
+  "SelectedNode": "\\src\\assets\\css",
   "PreviewInSolutionExplorer": false
 }

@@ -1,37 +1,38 @@
-<li [ngClass]="{'active':node.guid==routeDepartmentGuid}" (click)="navigateToDepartment(node.parentGuid)" >
-  <a data-toggle="tooltip" [title]="node.name">
-    <span style="cursor: pointer;" *ngIf="node && node.guid!=''" ><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-    <span style="cursor:pointer">
-      {{node.name | minStrLength:21}}
-    </span>
-  </a>
-</li>
-<li [ngClass]="{'active':department.guid==routeDepartmentGuid}" [@slideInOut] *ngFor="let department of departments">
-  <a data-toggle="tooltip" [title]="this.lang=='en'?department.name:department.nameAr">
-    <span>
-      <span style="cursor:pointer" (click)="navigateToDepartment(department.guid)">
-        {{this.lang=='en'?department.name:department.nameAr | minStrLength:15 }}
-      </span>
 
-      <!--<span  style="cursor: pointer;float:right;font-size: 14px;" class="badge" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0">
-        ...
-      </span>-->
+
+<div class="panel-heading">
+  <h3 (click)="navigateToDepartment(node.parentGuid)" class="h4 panel-title">{{(node.name && node.name!="")?node.name:'Categories'}}</h3>
+</div>
+<div class="pane-body">
+  <ul class="nav nav-pills flex-column text-sm category-menu">
+    <li class="nav-item" [ngClass]="{'active':department.guid==routeDepartmentGuid}" *ngFor="let department of departments">
+      <a data-toggle="tooltip" [title]="this.lang=='en'?department.name:department.nameAr" (click)="navigateToDepartment(department.guid)" class="nav-link d-flex align-items-center justify-content-between">
+        <span>{{(this.lang=='en'?department.name:department.nameAr) | minStrLength:15 }} </span>
+        <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:50px" (click)="navigateToEdit(department.guid)"><i class="fa fa-edit"></i></span>
+        <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:30px" (click)="navigateToAdd(department.guid)"><i class="fa fa-plus"></i></span>
+
+      </a>
+      <ul class="nav nav-pills flex-column" *ngIf="department.children && department.children.length>0">
+        <li [ngClass]="{'active':child.guid==routeDepartmentGuid}" class="nav-item" *ngFor="let child of department.children">
+          <a (click)="navigateToDepartment(child.guid)" class="nav-link" data-toggle="tooltip" [title]="this.lang=='en'?child.name:child.nameAr">{{(this.lang=='en'?child.name:child.nameAr) | minStrLength:15 }}</a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</div>
+
+<!--
+
+
       <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-edit" (click)="navigateToEdit(department.guid)"></span>
       <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-plus" (click)="navigateToAdd(department.guid)"></span>
-    </span>
-  </a>
-</li>
-<li *ngIf="isLogged()">
+    -->
+<!--<span  style="cursor: pointer;float:right;font-size: 14px;" class="badge" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0">
+     ...
+   </span>-->
+<!--<li *ngIf="isLogged()">
   <a style="cursor:pointer" (click)="navigateToAdd(0)">
     <span class="fa fa-plus"></span>
-  </a>
-</li>
-<!--<li class="" [ngClass]="{'active':(node.active || id == node.guid)}" (click)="activateThisItem(node)">
-  <a>
-    <span style="float: right;">
-      <span (click)="navigateToNewDepartment(node)" style="cursor:pointer;margin: 2px 5px"><span class="glyphicon glyphicon-plus"></span></span>
-      <span (click)="navigateToEditDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-edit"></span></span>
-      <span (click)="removeDepartment(node)" style="cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></span>
-    </span>
   </a>
 </li>-->

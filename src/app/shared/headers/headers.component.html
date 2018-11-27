@@ -1,40 +1,10 @@
-<!-- Close Icon -->
-<div class="mobile-nav">
-  <!-- Navbar Brand -->
-  <div class="amado-navbar-brand">
-    <a style="cursor:pointer" ><img src="./../../assets/img/logo.png" alt=""></a>
-  </div>
-  <!-- Navbar Toggler -->
-  <div (click)="toggleMenu()" class="amado-navbar-toggler">
-    <span></span><span></span><span></span>
-  </div>
-</div>
-<header [ngClass]="{ 'bp-xs-on':showNav}" class="col-md-4 header-area clearfix">
-  <div (click)="hideNav()" class="nav-close">
-    <i class="fa fa-close" aria-hidden="true"></i>
-  </div>
-  <!-- Logo -->
-  <div class="logo">
-    <a style="cursor:pointer" ><img src="./../../assets/img/logo.png" alt=""></a>
-  </div>
-  <!-- Amado Nav -->
-  <nav class="amado-nav">
-    <ul>
-
+<div class="panel panel-default sidebar-menu">
       <app-list-departments></app-list-departments>
-      <li *ngIf="isLogged()" (click)="logout()">
-        <a style="cursor:pointer">{{'logout'|translate}}</a>
-      </li>
-      <li  >
-        <a style="cursor:pointer" (click)="changeLanguage()">{{lang}}</a>
-      </li>
-      <!--<li routerLinkActive="active" *ngIf="!isLogged()">
-    <a routerLink="/auth/login/">login</a>
-  </li>
-  <li routerLinkActive="active" *ngIf="!isLogged()">
-    <a routerLink="/auth/register/">register</a>
-  </li>-->
+</div>
 
-    </ul>
-  </nav>
-</header>
+<!--<li class="nav-item" *ngIf="isLogged()" (click)="logout()">
+  <a style="cursor:pointer">{{'logout'|translate}}</a>
+</li>
+<li class="nav-item">
+  <a style="cursor:pointer" (click)="changeLanguage()">{{lang}}</a>
+</li>-->
