@@ -11,7 +11,6 @@ namespace serverApp.Models.Business
   public interface IDepartmentsBusiness
   {
     IUnitOfWork UnitOfWork { get; set; }
-    IStringLocalizer Localizer { get; }
     List<string> Errors { get; set; }
     bool IsValid(Department department, Guid? parentDepartmentGuid);
     bool CanDeleteDepartment(Guid guid, out long departmentId);
@@ -19,9 +18,9 @@ namespace serverApp.Models.Business
   public class DepartmentsBusiness : IDepartmentsBusiness
   {
     public IUnitOfWork UnitOfWork { get; set; }
-    public IStringLocalizer Localizer { get; }
+    public IStringLocalizer<SharedResources> Localizer { get; }
 
-    public DepartmentsBusiness(IUnitOfWork unitOfWork, IStringLocalizer<DepartmentsController> localizer)
+    public DepartmentsBusiness(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
     {
       UnitOfWork = unitOfWork;
       Localizer = localizer;

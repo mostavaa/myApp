@@ -12,7 +12,6 @@ import { ListProductsComponent } from './products/list-products/list-products.co
 import { CreateEditProductComponent } from './products/create-edit-product/create-edit-product.component';
 import { DetailsProductComponent } from './products/details-product/details-product.component';
 import { CreateEditDepartmentComponent } from './departments/create-edit-department/create-edit-department.component';
-import { DetailsDepartmentComponent } from './departments/details-department/details-department.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductsService } from './services/products/product.service';
@@ -33,7 +32,6 @@ import { MatDialogModule } from '@angular/material';
     CreateEditProductComponent,
     DetailsProductComponent,
     CreateEditDepartmentComponent,
-    DetailsDepartmentComponent,
     FooterComponent,
     MinStrLengthPipe,
     TranslatePipe,

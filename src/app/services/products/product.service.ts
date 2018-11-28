@@ -47,7 +47,6 @@ export class ProductsService {
         path: 'Products',
         query: query
       }).subscribe(success => {
-        debugger;
         if (success && success["status"] && success["status"] == true) {
           if (success["data"]) {
             if (success.data["result"]) {

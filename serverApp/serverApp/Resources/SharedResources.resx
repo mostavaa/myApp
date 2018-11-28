@@ -123,13 +123,46 @@
   <data name="DeletedSuccessfully" xml:space="preserve">
     <value>Deleted Successfully</value>
   </data>
+  <data name="DepartmentExistError" xml:space="preserve">
+    <value>Department Exist Before</value>
+  </data>
+  <data name="DepartmentHasChildrenError" xml:space="preserve">
+    <value>Cannot Delete Department , Department Has Children</value>
+  </data>
+  <data name="NameIsNullOrEmpty" xml:space="preserve">
+    <value>Name is Too Short</value>
+  </data>
+  <data name="NoDepartmentExist" xml:space="preserve">
+    <value>Department Not Exists</value>
+  </data>
+  <data name="NoParentDepartmentFound" xml:space="preserve">
+    <value>No Parent Departments Found</value>
+  </data>
+  <data name="NoProductExist" xml:space="preserve">
+    <value>Product Not Exists</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Not Found</value>
+  </data>
+  <data name="passwordLengthError" xml:space="preserve">
+    <value>Password Must Be Greater Than 3 Charachters</value>
+  </data>
+  <data name="ProductExistError" xml:space="preserve">
+    <value>Product Exist Before</value>
   </data>
   <data name="ServerError" xml:space="preserve">
     <value>Server Error</value>
   </data>
   <data name="UpdatedSuccessfully" xml:space="preserve">
     <value>Updated Successfully</value>
+  </data>
+  <data name="usernameLengthError" xml:space="preserve">
+    <value>User Name Must Be Greater Than 3 Charachters</value>
+  </data>
+  <data name="usernameUniqueError" xml:space="preserve">
+    <value>User Name Is Already Exists Before , Please Choose Another User Name</value>
+  </data>
+  <data name="WrongUserNameOrPassword" xml:space="preserve">
+    <value>Wrong User Name or Password</value>
   </data>
 </root>

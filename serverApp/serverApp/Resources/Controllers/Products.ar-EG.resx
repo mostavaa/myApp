@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DepartmentExistError" xml:space="preserve">
-    <value>القسم موجود مسبقآ</value>
-  </data>
-  <data name="DepartmentHasChildrenError" xml:space="preserve">
-    <value>غير قادر على مسح القسم, القسم به اقسام فرعية</value>
-  </data>
   <data name="NameIsNullOrEmpty" xml:space="preserve">
     <value>اسم القسم قصير جدآ</value>
   </data>
-  <data name="NoDepartmentExist" xml:space="preserve">
-    <value>القسم غير موجود</value>
+  <data name="NoProductExist" xml:space="preserve">
+    <value>المنتج غير موجود</value>
   </data>
-  <data name="NoParentDepartmentFound" xml:space="preserve">
-    <value>القسم الرئيسي غير موجود</value>
+  <data name="ProductExistError" xml:space="preserve">
+    <value>القسم موجود مسبقآ</value>
   </data>
 </root>

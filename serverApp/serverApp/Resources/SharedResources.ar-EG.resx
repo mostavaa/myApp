@@ -123,13 +123,46 @@
   <data name="DeletedSuccessfully" xml:space="preserve">
     <value>تم الحذف بنجاح</value>
   </data>
+  <data name="DepartmentExistError" xml:space="preserve">
+    <value>القسم موجود مسبقآ</value>
+  </data>
+  <data name="DepartmentHasChildrenError" xml:space="preserve">
+    <value>غير قادر على مسح القسم, القسم به اقسام فرعية</value>
+  </data>
+  <data name="NameIsNullOrEmpty" xml:space="preserve">
+    <value>الاسم قصير جدآ</value>
+  </data>
+  <data name="NoDepartmentExist" xml:space="preserve">
+    <value>القسم غير موجود</value>
+  </data>
+  <data name="NoParentDepartmentFound" xml:space="preserve">
+    <value>القسم الرئيسي غير موجود</value>
+  </data>
+  <data name="NoProductExist" xml:space="preserve">
+    <value>المنتج غير موجود</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>لا يوجد</value>
+  </data>
+  <data name="passwordLengthError" xml:space="preserve">
+    <value>الرقم السري يجب الا يقل عن 3 حروف</value>
+  </data>
+  <data name="ProductExistError" xml:space="preserve">
+    <value>المنتج موجود مسبقآ</value>
   </data>
   <data name="ServerError" xml:space="preserve">
     <value>يوجد مشكلة بالخادم</value>
   </data>
   <data name="UpdatedSuccessfully" xml:space="preserve">
     <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="usernameLengthError" xml:space="preserve">
+    <value>اسم المستخدم يجب الا يقل عن 3 حروف</value>
+  </data>
+  <data name="usernameUniqueError" xml:space="preserve">
+    <value>اسم المستخدم موجود مسبقآ</value>
+  </data>
+  <data name="WrongUserNameOrPassword" xml:space="preserve">
+    <value>خطأ في اسم المستخدم او كلمة السر</value>
   </data>
 </root>

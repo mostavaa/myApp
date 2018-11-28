@@ -12,6 +12,8 @@ import { AuthService } from '../../services/auth.service';
 export class DetailsProductComponent implements OnInit {
   guid: string;
   product: Product
+  lang: string = "en";
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -19,6 +21,8 @@ export class DetailsProductComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
+    this.lang = this.authService.getLanguage();
+
     this.route.params.subscribe((params) => {
       if (params["guid"]) {
         this.guid = params["guid"];

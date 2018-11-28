@@ -1,3 +1,28 @@
+<header class="nav-holder make-sticky" style="margin-bottom: 0px;">
+  <div id="navbar" role="navigation" class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand home"><img src="./assets/img/logo.png" alt="Universal logo" class="d-none d-md-inline-block"><img src="./assets/img/logo-small.png" alt="Universal logo" class="d-inline-block d-md-none"><span class="sr-only">Universal - go to homepage</span></a>
+      <button type="button" (click)="toggleMenu()" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
+      <div id="navigation" [ngClass]="{'show':navBarOpended}" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item" [routerLinkActiveOptions]="{exact:
+true}" routerLinkActive="active">
+            <a href="javascript: void(0)" routerLink="products" >{{'home'|translate}}</a>
+          </li>
+
+          <li class="nav-item" *ngIf="isLogged()" (click)="logout()">
+            <a style="cursor:pointer">{{'logout'|translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a style="cursor:pointer" (click)="changeLanguage()">{{lang}}</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>
+
 <div class="content">
   <div class="container">
     <div class="row bar">
@@ -10,5 +35,5 @@
     </div>
   </div>
 </div>
-<!--<app-footer></app-footer>-->
+<app-footer></app-footer>
 <!--{{'hello'|translate}}-->

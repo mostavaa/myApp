@@ -36,15 +36,9 @@ namespace serverApp
         {
                     new CultureInfo("en-US"),
                     new CultureInfo("ar-EG"),
-
                 };
         options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
-
-
-
         options.SupportedCultures = supportedCultures;
-
-
         options.SupportedUICultures = supportedCultures;
       });
 
@@ -73,10 +67,10 @@ namespace serverApp
           });
       services.AddDbContext<ClothesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
       );
-      services.AddScoped<IUnitOfWork, UnitOfWork>();
-      services.AddScoped<IDepartmentsBusiness, DepartmentsBusiness>();
-      services.AddScoped<IProductsBusiness, ProductsBusiness>();
-      services.AddScoped<IAuthBusiness, AuthBusiness>();
+      services.AddTransient<IUnitOfWork, UnitOfWork>();
+      services.AddTransient<IDepartmentsBusiness, DepartmentsBusiness>();
+      services.AddTransient<IProductsBusiness, ProductsBusiness>();
+      services.AddTransient<IAuthBusiness, AuthBusiness>();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
 

@@ -1,38 +1,41 @@
 
 
-<div class="panel-heading">
-  <h3 (click)="navigateToDepartment(node.parentGuid)" class="h4 panel-title">{{(node.name && node.name!="")?node.name:'Categories'}}</h3>
+<div  class="panel-heading">
+  <i *ngIf="node.name && node.name!=''"  style="cursor:pointer;" (click)="navigateToDepartment(node.parentGuid)" class="m-1 fa fa-backward"></i><h3 style="cursor:pointer;" (click)="navigateToDepartment(node.parentGuid)" class="h4 panel-title"> {{(node.name && node.name!="")?(this.lang=='en'?node.name:node.nameAr):'Categories'|translate}}</h3>
 </div>
 <div class="pane-body">
   <ul class="nav nav-pills flex-column text-sm category-menu">
     <li class="nav-item" [ngClass]="{'active':department.guid==routeDepartmentGuid}" *ngFor="let department of departments">
-      <a data-toggle="tooltip" [title]="this.lang=='en'?department.name:department.nameAr" (click)="navigateToDepartment(department.guid)" class="nav-link d-flex align-items-center justify-content-between">
-        <span>{{(this.lang=='en'?department.name:department.nameAr) | minStrLength:15 }} </span>
+      <a data-toggle="tooltip" [title]="this.lang=='en'?department.name:department.nameAr"  class="nav-link d-flex align-items-center justify-content-between">
+        <span style="cursor:pointer;" (click)="navigateToDepartment(department.guid)">{{(this.lang=='en'?department.name:department.nameAr) | minStrLength:15 }} </span>
         <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:50px" (click)="navigateToEdit(department.guid)"><i class="fa fa-edit"></i></span>
         <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:30px" (click)="navigateToAdd(department.guid)"><i class="fa fa-plus"></i></span>
 
       </a>
       <ul class="nav nav-pills flex-column" *ngIf="department.children && department.children.length>0">
         <li [ngClass]="{'active':child.guid==routeDepartmentGuid}" class="nav-item" *ngFor="let child of department.children">
-          <a (click)="navigateToDepartment(child.guid)" class="nav-link" data-toggle="tooltip" [title]="this.lang=='en'?child.name:child.nameAr">{{(this.lang=='en'?child.name:child.nameAr) | minStrLength:15 }}</a>
+          <a class="nav-link" data-toggle="tooltip" [title]="this.lang=='en'?child.name:child.nameAr">
+            <span (click)="navigateToDepartment(child.guid)" style="cursor:pointer;">
+              {{(this.lang=='en'?child.name:child.nameAr) | minStrLength:15 }}
+            </span>
+            <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:50px" (click)="navigateToEdit(child.guid)"><i class="fa fa-edit"></i></span>
+            <span *ngIf="isLogged()" style="cursor:pointer;position:absolute;right:30px" (click)="navigateToAdd(child.guid)"><i class="fa fa-plus"></i></span>
+          </a>
         </li>
       </ul>
     </li>
 
   </ul>
+  <a *ngIf="!(node.name && node.name!='') && isLogged()" class="btn btn-block btn-primary" (click)="navigateToAdd(0)">{{'addMode'|translate}}</a>
 </div>
 
 <!--
-
-
-      <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-edit" (click)="navigateToEdit(department.guid)"></span>
-      <span *ngIf="isLogged()" style="cursor:pointer" class="fa fa-plus" (click)="navigateToAdd(department.guid)"></span>
     -->
 <!--<span  style="cursor: pointer;float:right;font-size: 14px;" class="badge" (click)="navigateToChild(department.guid)" *ngIf="department.children.length>0">
      ...
    </span>-->
-<!--<li *ngIf="isLogged()">
-  <a style="cursor:pointer" (click)="navigateToAdd(0)">
+<!--<li >
+  <a style="cursor:pointer" >
     <span class="fa fa-plus"></span>
   </a>
 </li>-->

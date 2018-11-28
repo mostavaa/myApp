@@ -24,12 +24,12 @@ namespace serverApp.Controllers
   public class AuthController : RootController
   {
     private readonly IUnitOfWork unitOfWork;
-    private readonly IStringLocalizer<AuthController> authLocalizer;
+    private readonly IStringLocalizer<SharedResources> authLocalizer;
     private readonly IAuthBusiness authBusiness;
 
     public AuthController(
             IUnitOfWork unitOfWork,
-            IStringLocalizer<AuthController> authLocalizer,
+            IStringLocalizer<SharedResources> authLocalizer,
             IAuthBusiness authBusiness
             )
     {
@@ -55,7 +55,7 @@ namespace serverApp.Controllers
           issuer: "http://localhost:44344",
           audience: "http://localhost:44344",
           claims: claims,
-          expires: DateTime.Now.AddMinutes(1),
+          expires: DateTime.Now.AddMonths(3),
           signingCredentials: signinCredentials
       );
 

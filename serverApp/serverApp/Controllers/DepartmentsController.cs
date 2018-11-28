@@ -24,18 +24,15 @@ namespace serverApp.Controllers
 
     public IUnitOfWork UnitOfWork { get; set; }
     public IDepartmentsBusiness DepartmentsBusiness { get; }
-    public IStringLocalizer<DepartmentsController> Localizer { get; }
     public IStringLocalizer<SharedResources> SharedLocalizer { get; }
 
     public DepartmentsController(
         IUnitOfWork unitOfWork,
         IDepartmentsBusiness departmentsBusiness,
-        IStringLocalizer<DepartmentsController> localizer,
         IStringLocalizer<SharedResources> sharedLocalizer)
     {
       UnitOfWork = unitOfWork;
       DepartmentsBusiness = departmentsBusiness;
-      Localizer = localizer;
       SharedLocalizer = sharedLocalizer;
     }
     //api/departments/delete/guid
@@ -70,7 +67,7 @@ namespace serverApp.Controllers
       var department = UnitOfWork.DepartmentRepository.Get(o => o.Guid == id).Include(o => o.ParentDepartment).FirstOrDefault();
       if (department == null)
       {
-        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { Localizer["NoDepartmentExist"] } });
+        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["NoDepartmentExist"] } });
       }
       department.DeptName = departmentObj.DeptName;
       department.DeptNameAr = departmentObj.DeptNameAr;

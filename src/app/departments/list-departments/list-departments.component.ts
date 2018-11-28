@@ -54,10 +54,16 @@ export class ListDepartmentsComponent implements OnInit {
     this.lang = this.authService.getLanguage();
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        if (val.state.root.firstChild.params["departmentGuid"]) {
-          this.routeDepartmentGuid = val.state.root.firstChild.params["departmentGuid"];
-          this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
-          if (val.state.root.firstChild.params["departmentGuid"] == null) {
+        if (val.state.root.firstChild.params["departmentGuid"] || val.state.root.firstChild.params["parentGuid"]) {
+          if (val.state.root.firstChild.params["departmentGuid"]) {
+            this.routeDepartmentGuid = val.state.root.firstChild.params["departmentGuid"];
+            this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
+          }
+          if (val.state.root.firstChild.params["parentGuid"]) {
+            this.routeDepartmentGuid = val.state.root.firstChild.params["parentGuid"];
+            this.getDepartmentByGuid(val.state.root.firstChild.params["parentGuid"])
+          }
+          if (val.state.root.firstChild.params["departmentGuid"] == null && !val.state.root.firstChild.params["parentGuid"]) {
             this.getAllDepartments();
           }
         } else {
@@ -101,7 +107,6 @@ export class ListDepartmentsComponent implements OnInit {
         department.subscribe(dept => {
           this.departments = dept.children;
           this.node = dept;
-
         });
       }
     } else {

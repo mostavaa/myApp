@@ -12,16 +12,15 @@ namespace serverApp.Models.Business
   public interface IAuthBusiness
   {
     IUnitOfWork UnitOfWork { get; set; }
-    IStringLocalizer Localizer { get; }
     List<string> Errors { get; set; }
     bool IsValid(AppUser user);
   }
   public class AuthBusiness : IAuthBusiness
   {
     public IUnitOfWork UnitOfWork { get; set; }
-    public IStringLocalizer Localizer { get; }
+    public IStringLocalizer<SharedResources> Localizer { get; }
 
-    public AuthBusiness(IUnitOfWork unitOfWork, IStringLocalizer<AuthController> localizer)
+    public AuthBusiness(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
     {
       UnitOfWork = unitOfWork;
       Localizer = localizer;

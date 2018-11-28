@@ -5,6 +5,8 @@ import { Product } from '../../services/models';
 import { ProductsService } from '../../services/products/product.service';
 import {MatDialog,MatDialogConfig} from "@angular/material";
 import { DialogBodyComponent } from '../../shared/dialog-body/dialog-body.component';
+import { Constants } from '../../services/constants';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-create-edit-product',
   templateUrl: './create-edit-product.component.html',
@@ -23,7 +25,8 @@ export class CreateEditProductComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private productService: ProductsService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -48,7 +51,13 @@ export class CreateEditProductComponent implements OnInit {
         this.departmentGuid = params["departmentGuid"];
     })
   }
-
+  translate(value: string) {
+    let lang = this.authService.getLanguage();
+    if (Constants.resources && Constants.resources[lang] && Constants.resources[lang][value])
+      return Constants.resources[lang][value];
+    else
+      return value;
+  }
   initForm() {
     let nameControl = new FormControl(this.product ? this.product.name : null, [Validators.required, Validators.minLength(3)]);
     let nameArControl = new FormControl(this.product ? this.product.nameAr : null, [Validators.required, Validators.minLength(3)]);
@@ -68,7 +77,7 @@ export class CreateEditProductComponent implements OnInit {
     })
   }
   delete() {
-    this.openDialog({ isConfirm: true, type: "info", data: ["are you sure you want to delete this product !?"] }).afterClosed().subscribe(result => {
+    this.openDialog({ isConfirm: true, type: "info", data: [this.translate('deleteConfirmation')] }).afterClosed().subscribe(result => {
       if (result && result == true) {
         this.productService.delete(this.product.guid).subscribe(
           res => {

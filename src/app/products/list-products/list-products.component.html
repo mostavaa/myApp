@@ -1,33 +1,16 @@
-<div *ngIf="departmentGuid && isLogged()" class="single-products-catagory clearfix">
-  <a style="cursor:pointer" (click)="navigateToAdd()">
-    <img style="" src="./../../assets/img/empty.png" alt="">
-    <div class="hover-content">
-      <h1><span class="fa fa-plus"></span></h1>
+<div class="row products products-big">
+  <div style="cursor:pointer;" (click)="navigateToProduct(product)" class="col-lg-4 col-md-6"  *ngFor="let product of products">
+    <div class="product">
+      <div class="image"><a ><img [src]="product.picture?product.picture:'./../../assets/img/empty.png'" alt="" class="img-fluid image1"></a></div>
+      <div class="text">
+        <h3 class="h5"><a >{{lang=='en'?product.name:product.nameAr}}</a></h3>
+        <p class="price">{{'le'|translate}} {{product.price}}</p>
+      </div>
     </div>
-  </a>
+  </div>
 </div>
 
-<div *ngFor="let product of products" class="single-products-catagory clearfix">
-  <a style="cursor:pointer" (click)="navigateToProduct(product)">
-    <img style="" [src]="product.picture?product.picture:'./../../assets/img/empty.png'" alt="">
-    <!-- Hover Content -->
-    <div class="hover-content">
-      <div class="line"></div>
-      <p>{{'le'|translate}} {{product.price}}</p>
-      <h4>{{product.name}}</h4>
-      <p (click)="editProduct(product)" style="cursor:pointer"><span class="glyphicon glyphicon-edit"></span></p>
-      <p (click)="removeProduct(product.guid)" style="cursor:pointer"><span class="glyphicon glyphicon-remove"></span></p>
-    </div>
-  </a>
+<div class="pages" >
+  <p *ngIf="!endOfProducts" (click)="next()" class="loadMore text-center"><a class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> {{'loadMore'|translate}}</a></p>
+  <p  (click)="navigateToAdd()" *ngIf="departmentGuid && isLogged()" (click)="next()" class="loadMore text-center"><a class="btn btn-template-outlined"><i class="fa fa-chevron-plus"></i> {{'addModeProducts'| translate}}</a></p>
 </div>
-<div *ngIf="!endOfProducts"  class="single-products-catagory clearfix">
-  <a style="cursor:pointer" (click)="next()">
-    <img style="" src="./../../assets/img/empty.png" alt="">
-    <!-- Hover Content -->
-    <div class="hover-content">
-      <h1>...</h1>
-
-    </div>
-  </a>
-</div>
-

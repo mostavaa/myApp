@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using serverApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace serverApp.Controllers
 {
@@ -19,23 +20,21 @@ namespace serverApp.Controllers
   {
     public IUnitOfWork UnitOfWork { get; set; }
     public IProductsBusiness ProductsBusiness { get; }
-    public IStringLocalizer<ProductsController> Localizer { get; }
     public IStringLocalizer<SharedResources> SharedLocalizer { get; }
 
     public ProductsController(
         IUnitOfWork unitOfWork,
         IProductsBusiness productsBusiness,
-        IStringLocalizer<ProductsController> localizer,
         IStringLocalizer<SharedResources> sharedLocalizer)
     {
       UnitOfWork = unitOfWork;
-      Localizer = localizer;
       SharedLocalizer = sharedLocalizer;
       ProductsBusiness = productsBusiness;
     }
     //api/products/delete/guid
     [Route("delete")]
     [HttpPost]
+    [Authorize]
     public IActionResult Delete([FromQuery]Guid id)
     {
 
@@ -55,7 +54,7 @@ namespace serverApp.Controllers
       }
       else
       {
-        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { Localizer["NoProductExist"] } });
+        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["NoProductExist"] } });
       }
 
     }
@@ -63,12 +62,13 @@ namespace serverApp.Controllers
     //api/products/update/guid
     [Route("update")]
     [HttpPost]
+    [Authorize]
     public IActionResult Update([FromQuery] Guid id, [FromBody]Product product)
     {
       var obj = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o => o.Department).FirstOrDefault();
       if (obj == null)
       {
-        return BadRequest(new { status = 0, messages = new string[] { Localizer["NoProductExist"] } });
+        return BadRequest(new { status = 0, messages = new string[] { SharedLocalizer["NoProductExist"] } });
       }
       obj.Name = product.Name;
       obj.NameAr = product.NameAr;
@@ -94,6 +94,7 @@ namespace serverApp.Controllers
     //api/products/add/?query
     [Route("add")]
     [HttpPost]
+    [Authorize]
     public IActionResult Add([FromQuery]Guid deptGuid, [FromBody] Product obj)
     {
       if (ProductsBusiness.IsValid(obj, deptGuid))
@@ -119,9 +120,9 @@ namespace serverApp.Controllers
       var result = new List<object>();
       List<Product> objects;
       if (deptId != null)
-        objects = UnitOfWork.ProductRepository.Get(o => o.Department.Guid == deptId).Skip(page * Constants.pageSize).Take(Constants.pageSize).Include(o => o.Department).ToList();
+        objects = UnitOfWork.ProductRepository.Get(o => o.Department.Guid == deptId).OrderByDescending(o => o.CreationDate).Skip(page * Constants.pageSize).Take(Constants.pageSize).Include(o => o.Department).ToList();
       else
-        objects = UnitOfWork.ProductRepository.Get().Skip(page * Constants.pageSize).Take(Constants.pageSize).Include(o => o.Department).ToList();
+        objects = UnitOfWork.ProductRepository.Get().OrderByDescending(o=>o.CreationDate).Skip(page * Constants.pageSize).Take(Constants.pageSize).Include(o => o.Department).ToList();
       foreach (var obj in objects)
       {
         result.Add(new { obj.Name, obj.NameAr,obj.DescriptionAr ,obj.Description, obj.Price, obj.Likes, obj.Rate, obj.Guid, departmentGuid = obj.Department.Guid, picture = obj.PictureContent });
@@ -141,7 +142,7 @@ namespace serverApp.Controllers
         return Ok( new ReturnResponse() { status = true, data = new { obj.Name, obj.NameAr, obj.DescriptionAr, obj.Description, obj.Price, obj.Likes, obj.Rate, obj.Guid, departmentGuid = obj.Department.Guid, picture = obj.PictureContent } });
       else
 
-        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { Localizer["NoProductExist"] } });
+        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["NoProductExist"] } });
     }
   }
 }

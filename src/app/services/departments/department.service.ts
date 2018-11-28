@@ -102,19 +102,7 @@ export class DepartmentService {
       url: Constants.websiteEndPoint,
       path: 'Departments' + '/delete',
       query: body
-    }).pipe(map(res => {
-      if (res["status"] == true) {
-        if (res["messages"]) {
-          this.getDepartments().subscribe(depts => {
-            this.departments = depts;
-          });
-          return { res: true, messages: <string[]>res.messages };
-        }
-      }
-      if (res["messages"])
-        return { res: false, messages: <string[]>res.messages };
-      return { res: false, messages: <string[]>[] };
-      }));
+    });
   }
   edit(name: string, nameAr: string, id: string) {
     let body = {

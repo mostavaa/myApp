@@ -4,27 +4,27 @@
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
-          <input type="text" formControlName="departmentName" placeholder="Name" class="form-control">
+          <input type="text" formControlName="departmentName" [placeholder]="translate('departmentName')" class="form-control">
           <span style="color:red" *ngIf="!departmentForm.get('departmentName').valid && departmentForm.get('departmentName').touched">
-            <span *ngIf="departmentForm.get('departmentName').errors['required']">This Field Is Required</span>
-            <span *ngIf="departmentForm.get('departmentName').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
+            <span *ngIf="departmentForm.get('departmentName').errors['required']">{{'fieldRequired'|translate}}</span>
+            <span *ngIf="departmentForm.get('departmentName').errors['minlength']">{{'minLength'|translate}}</span>
           </span>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <input type="text" formControlName="departmentNameAr" placeholder="Arabic Name" class="form-control">
+          <input type="text" formControlName="departmentNameAr" [placeholder]="translate('arabicDepartmentName')" class="form-control">
           <span style="color:red" *ngIf="!departmentForm.get('departmentNameAr').valid && departmentForm.get('departmentNameAr').touched">
-            <span *ngIf="departmentForm.get('departmentNameAr').errors['required']">This Field Is Required</span>
-            <span *ngIf="departmentForm.get('departmentNameAr').errors['minlength']">Min Department Name Length Must be 3 at Least</span>
+            <span *ngIf="departmentForm.get('departmentNameAr').errors['required']">{{'fieldRequired'|translate}}</span>
+            <span *ngIf="departmentForm.get('departmentNameAr').errors['minlength']">{{'minLength'|translate}}</span>
           </span>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <input type="submit" [disabled]="!departmentForm.valid" class="btn amado-btn" [value]="editMode?'edit':'add'">
-          <input *ngIf="editMode" type="button" (click)="deleteDepartment()" class="btn amado-btn" value="delete">
+          <input type="submit" [disabled]="!departmentForm.valid" class="btn btn-template-outlined" [value]="editMode?(translate('edit')):(translate('add'))">
+          <input *ngIf="editMode" type="button" (click)="deleteDepartment()" class="btn btn-danger" [value]="translate('delete')">
         </div>
       </div>
     </div>

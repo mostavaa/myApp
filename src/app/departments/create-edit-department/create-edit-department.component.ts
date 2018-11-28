@@ -5,6 +5,8 @@ import { DepartmentService } from '../../services/departments/department.service
 import { Department } from '../../services/models';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { DialogBodyComponent } from '../../shared/dialog-body/dialog-body.component';
+import { Constants } from '../../services/constants';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -19,11 +21,11 @@ export class CreateEditDepartmentComponent implements OnInit {
   department: Department;
 
   departmentForm: FormGroup
-  constructor(private router: Router, private dialog: MatDialog, private route: ActivatedRoute, public departmentService: DepartmentService) { }
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, public departmentService: DepartmentService) { }
 
   ngOnInit() {
-
-
+    
+  
     this.route.params.subscribe((params) => {
       if (params["parentGuid"]) {
         this.parentDepartment = params["parentGuid"];
@@ -42,7 +44,13 @@ export class CreateEditDepartmentComponent implements OnInit {
 
     })
   }
-
+  translate(value: string) {
+    let lang = this.authService.getLanguage();
+    if (Constants.resources && Constants.resources[lang] && Constants.resources[lang][value])
+      return Constants.resources[lang][value];
+    else
+      return value;
+  }
   initForm() {
     let departmentNameControl = new FormControl(this.department ? this.department.name : null, [Validators.required, Validators.minLength(3)])
     let departmentNameArControl = new FormControl(this.department ? this.department.nameAr : null, [Validators.required, Validators.minLength(3)])
@@ -104,9 +112,8 @@ export class CreateEditDepartmentComponent implements OnInit {
     this.openDialog({ type: "error", data: this.errorMessages });
   }
   deleteDepartment() {
-    this.openDialog({ isConfirm: true, type: "info", data: ["are you sure you want to delete this department !?"] }).afterClosed().subscribe(result => {
+    this.openDialog({ isConfirm: true, type: "info", data: [this.translate('deleteConfirmation')] }).afterClosed().subscribe(result => {
       if (result && result == true) {
-        debugger;
         this.departmentService.delete(this.departmentGuid).subscribe(
           res => {
             if (res["status"] == true) {

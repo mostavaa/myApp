@@ -12,16 +12,15 @@ namespace serverApp.Models.Business
     public interface IProductsBusiness
     {
         IUnitOfWork UnitOfWork { get; set; }
-        IStringLocalizer Localizer { get; }
         List<string> Errors { get; set; }
         bool IsValid(Product product, Guid deptGuid);
     }
     public class ProductsBusiness: IProductsBusiness
     {
         public IUnitOfWork UnitOfWork { get; set; }
-        public IStringLocalizer Localizer { get; }
+        public IStringLocalizer<SharedResources> Localizer { get; }
 
-        public ProductsBusiness(IUnitOfWork unitOfWork , IStringLocalizer<DepartmentsController> localizer)
+        public ProductsBusiness(IUnitOfWork unitOfWork , IStringLocalizer<SharedResources> localizer)
         {
             UnitOfWork = unitOfWork;
             Localizer = localizer;

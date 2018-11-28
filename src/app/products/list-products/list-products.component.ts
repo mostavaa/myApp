@@ -13,6 +13,8 @@ export class ListProductsComponent implements OnInit {
   products: Product[] = [];
   departmentGuid: string;
   endOfProducts: boolean = true;
+  lang: string = "en";
+
   constructor(
     private productsService: ProductsService,
     private route: ActivatedRoute,
@@ -22,6 +24,7 @@ export class ListProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.lang = this.authService.getLanguage();
 
     this.productsService.productsSubject.subscribe(products => {
       this.products.push(...products)

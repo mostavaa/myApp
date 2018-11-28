@@ -14,8 +14,6 @@ export class HeadersComponent implements OnInit {
   showNav = true;
   lang
   constructor(private authService: AuthService,
-    private http: HttpClient,
-    private router: Router
   ) { }
 
   ngOnInit() {

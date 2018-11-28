@@ -1,21 +1,30 @@
-<h2 mat-dialog-title >
-  <span class="label label-danger" *ngIf="data.type=='error'">Error</span>
-  <span class="label label-info" *ngIf="data.type=='info'">Info</span>
-  <span class="label label-success" *ngIf="data.type=='success'">success</span>
 
-</h2>
+<div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel" class="modal fade show" style="padding-right: 17px; display: block;">
+  <div role="document" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 >
+          <span class="label label-danger" *ngIf="data.type=='error'">{{'error'|translate}}</span>
+          <span class="label label-info" *ngIf="data.type=='info'">{{'info'|translate}}</span>
+          <span class="label label-success" *ngIf="data.type=='success'">{{'success'|translate}}</span>
 
-<mat-dialog-content>
-  <div *ngIf="data && data.data">
-    <p *ngFor="let item of data.data">{{item}}</p>
+        </h2>
+      </div>
+      <div class="modal-body">
+          <div *ngIf="data && data.data">
+            <p *ngFor="let item of data.data">{{item}}</p>
+          </div>
+          <p> </p>
+      </div>
+      <div class="modal-footer">
+          <div *ngIf="data.isConfirm">
+            <button class="btn btn-template-outlined" (click)="confirm(true)">{{'yes'|translate}}</button>
+            <button class="btn btn-template-outlined" (click)="confirm(false)">{{'no'|translate}}</button>
+          </div>
+          <button class="btn btn-default" (click)="close()">{{'close'|translate}}</button>
+  
+      </div>
+    </div>
   </div>
-  <p> </p>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  <div *ngIf="data.isConfirm">
-    <button class="mat-raised-button" (click)="confirm(true)">Yes</button>
-    <button class="mat-raised-button" (click)="confirm(false)">No</button>
-  </div>
-  <button class="mat-raised-button" (click)="close()">Close</button>
-</mat-dialog-actions>
+</div>
+<div class="modal-backdrop fade show"></div>
