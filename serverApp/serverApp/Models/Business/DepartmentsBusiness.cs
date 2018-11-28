@@ -14,6 +14,7 @@ namespace serverApp.Models.Business
     List<string> Errors { get; set; }
     bool IsValid(Department department, Guid? parentDepartmentGuid);
     bool CanDeleteDepartment(Guid guid, out long departmentId);
+    List<long> GetDepartmentWithChildren(long deptId);
   }
   public class DepartmentsBusiness : IDepartmentsBusiness
   {
@@ -26,7 +27,24 @@ namespace serverApp.Models.Business
       Localizer = localizer;
       Errors = new List<string>();
     }
-
+    public List<long> GetDepartmentWithChildren(long deptId)
+    {
+      return GetDepartmentChildren(deptId);
+    }
+    private List<long> GetDepartmentChildren(long departmentId)
+    {
+      //stop condition=> no children
+      if (!UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == departmentId && o.IsActive).Any())
+      {
+        return new List<long>() { departmentId };
+      }
+      var children = new List<long>();
+      foreach (var subDept in UnitOfWork.DepartmentRepository.Get(o => o.ParentDepartmentId == departmentId && o.IsActive))
+      {
+        children.AddRange(GetDepartmentChildren(subDept.Id));
+      }
+      return children;
+    }
     public List<string> Errors { get; set; }
     public bool IsValid(Department department, Guid? parentDepartmentGuid)
     {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,5 +13,5 @@ namespace Data.Repositories
         void Add(T entity);
         void Delete(long entity);
         void Update(T entity);
-    }
+  }
 }
