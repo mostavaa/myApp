@@ -110,6 +110,7 @@ namespace serverApp.Controllers
     }
     // GET api/Departments
     [HttpGet]
+    [Route("all")]
     public IActionResult GetAllDepartments()
     {
       var result = new List<object>();

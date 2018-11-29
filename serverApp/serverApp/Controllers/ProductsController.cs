@@ -118,7 +118,7 @@ namespace serverApp.Controllers
     // GET api/products
 
 
-
+    [Route("all")]
     [HttpGet]
     public IActionResult GetAll([FromQuery]Guid? deptId, [FromQuery]int page = 0)
     {

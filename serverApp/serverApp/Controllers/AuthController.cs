@@ -64,6 +64,7 @@ namespace serverApp.Controllers
     }
     // POST: api/Auth
     [HttpPost]
+    [Route("login")]
     public ActionResult Login([FromBody] AppUser user)
     {
       AppUser dbUser = unitOfWork.AppUserRepository.Get(o => o.Username == user.Username && o.Password == user.Password).FirstOrDefault();

@@ -18,7 +18,7 @@ export class DepartmentService {
     return this.httpService.invoke({
       method: 'GET',
       url: Constants.websiteEndPoint,
-      path: 'Departments'
+      path: 'Departments/all'
     }).pipe(
       map((res) => {
         if (res["status"] == true) {

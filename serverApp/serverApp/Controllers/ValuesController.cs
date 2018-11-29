@@ -19,7 +19,8 @@ namespace serverApp.Controllers
         }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+    [Route("all")]
+    public ActionResult<IEnumerable<string>> Get()
         {
             var res =  _unitOfWork.OwnerRepository.Get().ToList();
             return new string[] { "value1", "value2" };

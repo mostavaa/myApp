@@ -22,7 +22,7 @@ export class AuthService {
     return this.authorize("/Auth", user);
   }
   login(user: ICurrentUser) {
-    this.authorize("/Auth", user);
+    this.authorize("/Auth/login", user);
   }
   register(user: ICurrentUser) {
     this.authorize("/Auth/register", user);

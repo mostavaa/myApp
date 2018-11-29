@@ -44,9 +44,10 @@ export class ProductsService {
       this.httpService.invoke({
         method: 'GET',
         url: Constants.websiteEndPoint,
-        path: 'Products',
+        path: 'Products/all',
         query: query
       }).subscribe(success => {
+        debugger;
         if (success && success["status"] && success["status"] == true) {
           if (success["data"]) {
             if (success.data["result"]) {

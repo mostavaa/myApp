@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>ftp://ftp-eu.site4now.net/site1</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>11/21/2018 11:01:59</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>11/21/2018 11:03:38</publishTime>
+    </File>
+    <File Include="ar-EG/serverApp.resources.dll">
+      <publishTime>11/29/2018 12:02:08</publishTime>
+    </File>
+    <File Include="data.dll">
+      <publishTime>11/28/2018 16:54:53</publishTime>
+    </File>
+    <File Include="data.pdb">
+      <publishTime>11/28/2018 16:54:53</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Abstractions.dll">
+      <publishTime>09/20/2018 15:08:26</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Design.dll">
+      <publishTime>09/20/2018 15:08:26</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.dll">
+      <publishTime>09/20/2018 15:08:30</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Relational.dll">
+      <publishTime>09/20/2018 15:08:30</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.SqlServer.dll">
+      <publishTime>09/20/2018 15:08:26</publishTime>
+    </File>
+    <File Include="Remotion.Linq.dll">
+      <publishTime>02/06/2018 22:25:00</publishTime>
+    </File>
+    <File Include="serverApp.deps.json">
+      <publishTime>11/29/2018 12:02:26</publishTime>
+    </File>
+    <File Include="serverApp.dll">
+      <publishTime>11/29/2018 12:02:08</publishTime>
+    </File>
+    <File Include="serverApp.pdb">
+      <publishTime>11/29/2018 12:02:08</publishTime>
+    </File>
+    <File Include="serverApp.runtimeconfig.json">
+      <publishTime>11/29/2018 12:02:27</publishTime>
+    </File>
+    <File Include="System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>09/18/2018 19:38:16</publishTime>
+    </File>
+    <File Include="System.Interactive.Async.dll">
+      <publishTime>11/21/2016 14:05:54</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>11/29/2018 12:02:27</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap-grid.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap-grid.min.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap-reboot.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap-reboot.min.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap.min.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/css/font-awesome.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/css/font-awesome.min.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/fontawesome-webfont.eot">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/fontawesome-webfont.svg">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/fontawesome-webfont.woff">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/fonts/FontAwesome.otf">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/font-awesome/HELP-US-OUT.txt">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/style.marsala.css">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/empty.png">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/logo-small.png">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/logo.png">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/auth-auth-module-ngfactory.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/auth-auth-module-ngfactory.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/index.html">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/main.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/main.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/polyfills.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/polyfills.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/runtime.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/runtime.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/styles.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/styles.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/vendor.js">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+    <File Include="wwwroot/vendor.js.map">
+      <publishTime>11/28/2018 15:12:21</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

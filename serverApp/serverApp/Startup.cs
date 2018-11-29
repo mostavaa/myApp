@@ -14,6 +14,7 @@ using Data;
 using Data.Repositories;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace serverApp
 {
@@ -90,12 +91,31 @@ namespace serverApp
       app.UseAuthentication();
 
       app.UseHttpsRedirection();
-
+     // app.UseFileServer();
 
       var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
       app.UseRequestLocalization(options.Value);
 
-      app.UseMvc();
+
+      //
+      app.Use(async (context, next) =>
+      {
+        await next();
+        if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+        {
+          context.Request.Path = "/index.html";
+          await next();
+        }
+      });
+
+      app.UseStaticFiles();
+
+      app.UseMvc(routes =>
+      {
+
+      });
+
+     
     }
   }
 }

@@ -5,7 +5,39 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <None Include="wwwroot\assets\css\bootstrap-grid.css" />
+    <None Include="wwwroot\assets\css\bootstrap-grid.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.css" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap.css" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\font-awesome\css\font-awesome.css" />
+    <None Include="wwwroot\assets\css\font-awesome\css\font-awesome.min.css" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets\css\font-awesome\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\assets\css\font-awesome\HELP-US-OUT.txt" />
+    <None Include="wwwroot\assets\css\style.marsala.css" />
+    <None Include="wwwroot\assets\img\empty.png" />
+    <None Include="wwwroot\assets\img\logo-small.png" />
+    <None Include="wwwroot\assets\img\logo.png" />
+    <None Include="wwwroot\auth-auth-module-ngfactory.js" />
+    <None Include="wwwroot\auth-auth-module-ngfactory.js.map" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\main.js" />
+    <None Include="wwwroot\main.js.map" />
+    <None Include="wwwroot\polyfills.js" />
+    <None Include="wwwroot\polyfills.js.map" />
+    <None Include="wwwroot\runtime.js" />
+    <None Include="wwwroot\runtime.js.map" />
+    <None Include="wwwroot\styles.js" />
+    <None Include="wwwroot\styles.js.map" />
+    <None Include="wwwroot\vendor.js" />
+    <None Include="wwwroot\vendor.js.map" />
   </ItemGroup>
 
   <ItemGroup>
