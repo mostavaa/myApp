@@ -4,13 +4,15 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderRes
 import { AuthService } from "./auth.service";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, finalize, take, switchMap, filter } from "rxjs/operators";
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { HttpService } from './http.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) { }
+  constructor(private httpService: HttpService, private authService: AuthService, private spinnerService: Ng4LoadingSpinnerService) { }
   isRefreshingToken: boolean = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> | any> {
-    return next.handle(this.addTokenToRequest(request, this.authService.getAuthToken()))
+    let handling = next.handle(this.addTokenToRequest(request, this.authService.getAuthToken()))
       .pipe(
         catchError(err => {
           if (err instanceof HttpErrorResponse) {
@@ -28,7 +30,16 @@ export class TokenInterceptor implements HttpInterceptor {
           } else {
             return throwError(err);
           }
-        }));
+      }),
+      finalize(() => {
+        this.isRefreshingToken = false;
+        this.httpService.requestCounts--;
+        this.httpService.requestCounts == 0 ? this.spinnerService.hide() : '';
+
+      })
+    )
+
+    return handling;
   }
   private addTokenToRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
@@ -38,10 +49,10 @@ export class TokenInterceptor implements HttpInterceptor {
       this.isRefreshingToken = true;
 
       this.tokenSubject.next(null);
-      return this.authService.refreshToken({refreshToken:this.authService.getRefreshToken()})
+      return this.authService.refreshToken({ refreshToken: this.authService.getRefreshToken() })
         .pipe(
-        switchMap((currentUser: ICurrentUser) => {
-          debugger;
+          switchMap((currentUser: ICurrentUser) => {
+            debugger;
 
             if (currentUser.accessToken) {
               this.tokenSubject.next(currentUser.accessToken);
@@ -61,8 +72,8 @@ export class TokenInterceptor implements HttpInterceptor {
       return this.tokenSubject
         .pipe(filter(token => token != null),
           take(1),
-        switchMap(token => {
-          debugger;
+          switchMap(token => {
+            debugger;
             return next.handle(this.addTokenToRequest(request, token));
           }));
     }

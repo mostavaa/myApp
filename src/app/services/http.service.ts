@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Injectable()
 export class HttpService {
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  requestCounts: number = 0;
+  constructor(private http: HttpClient, private authService: AuthService, private spinnerService: Ng4LoadingSpinnerService) { }
 
   /**
    * Invoke function should be able to handle any HTTP request based on the @params
    */
   invoke(params): Observable<any> {
+    this.spinnerService.show();
+    this.requestCounts++;
     if (params) {
       const method = params.method.toLowerCase();
       const { url, path, body, headers, query } = params;
@@ -73,7 +77,7 @@ export class HttpService {
       } else {
         console.error('Unknown request method.');
       }
-
+     
       /**
        * RETURN API REQUEST
        */

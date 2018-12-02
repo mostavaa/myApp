@@ -23,6 +23,8 @@ import { AuthGuard } from './services/guards/auth.guard';
 import { HttpService } from './services/http.service';
 import { DialogBodyComponent } from './shared/dialog-body/dialog-body.component';
 import { MatDialogModule } from '@angular/material';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,8 @@ import { MatDialogModule } from '@angular/material';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    Ng4LoadingSpinnerModule.forRoot() 
   ],
   providers: [
     HttpService,
