@@ -62,6 +62,14 @@ namespace Data.Repositories
       }
     }
 
+    private IRepository<ProductImages> _ProductImagesRepository { get; set; }
+    public IRepository<ProductImages> ProductImagesRepository
+    {
+      get
+      {
+        return _ProductImagesRepository = _ProductImagesRepository ?? new ProductImagesRepository(Context);
+      }
+    }
 
     public void Dispose()
     {

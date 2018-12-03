@@ -1,6 +1,6 @@
 export class Constants{
-  //public static websiteEndPoint: string = "https://localhost:44343/api"
-  public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api/";
+  public static websiteEndPoint: string = "https://localhost:44343/api"
+  //public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api/";
   
   public static resources: any = {
     en: {
@@ -32,7 +32,8 @@ export class Constants{
       success: 'Success',
       yes: 'Yes',
       no: 'No',
-      close:'Close',
+      close: 'Close',
+      upload:'Upload at Least One Image , Max 6 Images',
     },
     ar: {
       hello: 'مرحبا',
@@ -64,6 +65,7 @@ export class Constants{
       yes: 'نعم',
       no: 'لا',
       close: 'اغلاق',
+      upload: 'برجاء اختيار صورة على الاقل , 6 صور حد اقصى',
     }
   }
 }

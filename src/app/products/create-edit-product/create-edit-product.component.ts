@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { Product } from '../../services/models';
 import { ProductsService } from '../../services/products/product.service';
-import {MatDialog,MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DialogBodyComponent } from '../../shared/dialog-body/dialog-body.component';
 import { Constants } from '../../services/constants';
 import { AuthService } from '../../services/auth.service';
@@ -63,7 +63,14 @@ export class CreateEditProductComponent implements OnInit {
     let nameArControl = new FormControl(this.product ? this.product.nameAr : null, [Validators.required, Validators.minLength(3)]);
     let descriptionControl = new FormControl(this.product ? this.product.description : null, [Validators.required, Validators.minLength(3)]);
     let descriptionArControl = new FormControl(this.product ? this.product.descriptionAr : null, [Validators.required, Validators.minLength(3)]);
-    let PictureControl = new FormControl(this.product ? this.product.picture : null, [Validators.required]);
+
+    let PicturesArray = new FormArray([]);
+    if (this.product) {
+      for (var i = 0; i < this.product.pictures.length; i++) {
+        let picCtrl = new FormControl(this.product.pictures[i]);
+        PicturesArray.push(picCtrl);
+      }
+    }
     let PriceControl = new FormControl(this.product ? this.product.price : null, [Validators.required]);
 
     this.productForm = new FormGroup({
@@ -71,7 +78,7 @@ export class CreateEditProductComponent implements OnInit {
       NameAr: nameArControl,
       Description: descriptionControl,
       DescriptionAr: descriptionArControl,
-      Picture: PictureControl,
+      PicturesArray: PicturesArray,
       Price: PriceControl,
 
     })
@@ -102,61 +109,63 @@ export class CreateEditProductComponent implements OnInit {
     return dialogRef;
   }
   onSubmit() {
-    let product: Product = {
-      departmentGuid: this.departmentGuid,
-      description: this.productForm.get("Description").value,
-      descriptionAr: this.productForm.get("DescriptionAr").value,
-      name: this.productForm.get("Name").value,
-      nameAr: this.productForm.get("NameAr").value,
-      picture: this.productForm.get("Picture").value,
-      price: this.productForm.get("Price").value,
-      guid: this.guid,
-      likes: 0
-    }
+    if (this.validImages()) {
 
-    if (this.editMode) {
-      this.productService.edit(product).subscribe(success => {
-        if (success && success["status"] && success.status == true) {
+      let product: Product = {
+        departmentGuid: this.departmentGuid,
+        description: this.productForm.get("Description").value,
+        descriptionAr: this.productForm.get("DescriptionAr").value,
+        name: this.productForm.get("Name").value,
+        nameAr: this.productForm.get("NameAr").value,
+        price: this.productForm.get("Price").value,
+        guid: this.guid,
+        likes: 0,
+        pictures: this.productForm.get("PicturesArray").value
+      }
 
-          if (success["messages"]) {
-            this.openDialog({ type: "success", data: success.messages }).afterClosed().subscribe(result => {
-              location.reload();
-            });
-          }
-        }
-      },
-        error => {
-          if (error && error["messages"]) {
-            if (error["messages"]) {
-              this.openDialog({ type: "error", data: error.messages });
+      if (this.editMode) {
+        this.productService.edit(product).subscribe(success => {
+          if (success && success["status"] && success.status == true) {
+
+            if (success["messages"]) {
+              this.openDialog({ type: "success", data: success.messages }).afterClosed().subscribe(result => {
+                location.reload();
+              });
             }
           }
-        });
-    } else {
-      this.productService.add(product).subscribe(success => {
-        if (success && success["status"] && success.status == true) {
+        },
+          error => {
+            if (error && error["messages"]) {
+              if (error["messages"]) {
+                this.openDialog({ type: "error", data: error.messages });
+              }
+            }
+          });
+      } else {
+        this.productService.add(product).subscribe(success => {
+          if (success && success["status"] && success.status == true) {
 
-          if (success["messages"]) {
-            this.openDialog({ type: "success", data: success.messages }).afterClosed().subscribe(result => {
-              this.router.navigate(['/products', this.departmentGuid]);
-            });
-          }
-        }
-      },
-        error => {
-          if (error && error["messages"]) {
-            if (error["messages"]) {
-              this.openDialog({ type: "error", data: error.messages });
+            if (success["messages"]) {
+              this.openDialog({ type: "success", data: success.messages }).afterClosed().subscribe(result => {
+                this.router.navigate(['/products', this.departmentGuid]);
+              });
             }
           }
-        });
+        },
+          error => {
+            if (error && error["messages"]) {
+              if (error["messages"]) {
+                this.openDialog({ type: "error", data: error.messages });
+              }
+            }
+          });
+      }
     }
   }
+  removePicture(index: number) {
+    (<FormArray>this.productForm.get('PicturesArray')).removeAt(index);
+  }
   onFileChange(event) {
-
-    this.productForm.patchValue({
-      Picture: null
-    });
     let reader = new FileReader();
     var fileTypes = ['jpg', 'jpeg', 'png'];
     if (event.target.files && event.target.files.length) {
@@ -174,17 +183,20 @@ export class CreateEditProductComponent implements OnInit {
         reader.readAsDataURL(file);
 
         reader.onload = () => {
-
-          this.productForm.patchValue({
-            Picture: reader.result
-          });
+          let picControl = new FormControl(reader.result);
+          (<FormArray>this.productForm.get('PicturesArray')).push(picControl);
           // need to run CD since file load runs outside of zone
           this.cd.markForCheck();
         };
       } else {
 
+
       }
     }
+  }
+
+  validImages() {
+    return (<FormArray>this.productForm.get('PicturesArray')).controls.length > 0 && (<FormArray>this.productForm.get('PicturesArray')).controls.length <= 6
   }
 
 }

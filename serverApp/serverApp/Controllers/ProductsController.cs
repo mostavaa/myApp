@@ -41,9 +41,13 @@ namespace serverApp.Controllers
     public IActionResult Delete([FromQuery]Guid id)
     {
 
-      var product = UnitOfWork.ProductRepository.Get(o => o.Guid == id).FirstOrDefault();
+      var product = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o=>o.Images).FirstOrDefault();
       if (product != null)
       {
+        foreach (var image in product.Images)
+        {
+          UnitOfWork.ProductImagesRepository.Delete(image.Id);
+        }     
         UnitOfWork.ProductRepository.Delete(product.Id);
         try
         {
@@ -68,7 +72,7 @@ namespace serverApp.Controllers
     [Authorize]
     public IActionResult Update([FromQuery] Guid id, [FromBody]Product product)
     {
-      var obj = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o => o.Department).FirstOrDefault();
+      var obj = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o => o.Department).Include(o=>o.Images).FirstOrDefault();
       if (obj == null)
       {
         return BadRequest(new { status = 0, messages = new string[] { SharedLocalizer["NoProductExist"] } });
@@ -78,7 +82,7 @@ namespace serverApp.Controllers
       obj.Price = product.Price;
       obj.Description = product.Description;
       obj.DescriptionAr = product.DescriptionAr;
-      obj.PictureContent = product.PictureContent;
+      obj.Pictures = product.Pictures;
       if ((ProductsBusiness.IsValid(obj, obj.Department.Guid)))
       {
         try
@@ -152,9 +156,9 @@ namespace serverApp.Controllers
     public IActionResult Get([FromQuery]Guid id)
     {
 
-      var obj = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o => o.Department).FirstOrDefault();
+      var obj = UnitOfWork.ProductRepository.Get(o => o.Guid == id).Include(o => o.Department).Include(o=>o.Images).FirstOrDefault();
       if (obj != null)
-        return Ok(new ReturnResponse() { status = true, data = new { obj.Name, obj.NameAr, obj.DescriptionAr, obj.Description, obj.Price, obj.Likes, obj.Rate, obj.Guid, departmentGuid = obj.Department.Guid, picture = obj.PictureContent } });
+        return Ok(new ReturnResponse() { status = true, data = new { obj.Name, obj.NameAr, obj.DescriptionAr, obj.Description, obj.Price, obj.Likes, obj.Rate, obj.Guid, departmentGuid = obj.Department.Guid, picture = obj.PictureContent , pictures=obj.Images.Select(o=>o.Name).ToList() } });
       else
 
         return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["NoProductExist"] } });

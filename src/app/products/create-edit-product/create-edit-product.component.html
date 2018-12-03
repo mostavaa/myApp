@@ -37,17 +37,27 @@
       </span>
     </div>
     <div class="form-group">
-      <input type="file" (change)="onFileChange($event)" class="form-control" />
-      <div *ngIf="productForm.get('Picture').value" style="width: 100px;height: 100px;">
-        <img [src]="productForm.get('Picture').value" class="img img-responsive" style="width: 100%;height: 100%;" />
+      <label class="form-label">{{'upload'|translate}}</label>
+    </div>
+    <div class="file-container form-group row m-3">
+      <div class="p-1 parentDiv" *ngFor="let control of productForm.get('PicturesArray').controls;let i=index">
+        <img [src]="control.value" class="img img-responsive" style="width: 100%;height: 100%;" />
+        <span (click)="removePicture(i)" class="childDiv"><i class="fa fa-4x fa-remove"></i></span>
       </div>
-      <span style="color:red" *ngIf="!productForm.get('Picture').valid && productForm.get('Picture').touched">
-        <span *ngIf="productForm.get('Picture').errors['required']">{{'fieldRequired'|translate}}</span>
-      </span>
+      <label class="fileLabel" >
+        <img src="../../../assets/img/image.png" />
+        <input type="file" (change)="onFileChange($event)" class="form-control" />
+      </label>
+      
     </div>
     <div class="form-group">
-      <input type="submit" class="btn btn-template-outlined" [disabled]="productForm.invalid" [value]="editMode?(translate('edit')):(translate('add'))">
-      <input *ngIf="editMode" type="button" class="btn btn-danger" (click)="delete()" [value]="translate('delete')">
+      <!--<div *ngIf="productForm.get('Picture').value" style="width: 100px;height: 100px;">
+        <img [src]="productForm.get('Picture').value" class="img img-responsive" style="width: 100%;height: 100%;" />
+      </div>-->
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-template-outlined" [disabled]="productForm.invalid || !validImages()" [value]="editMode?(translate('edit')):(translate('add'))">
+      <input *ngIf="editMode" type="button" class="btn btn-danger" [disabled]="productForm.invalid || !validImages()" (click)="delete()" [value]="translate('delete')">
     </div>
   </form>
 </div>

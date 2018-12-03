@@ -92,12 +92,12 @@ export class ProductsService {
       id: product.guid
     }
     let body = {
-        Name: product.name,
-        NameAr: product.nameAr,
-        Description: product.description,
-        DescriptionAr: product.descriptionAr,
-        PictureContent: product.picture,
-        Price: product.price,
+      Name: product.name,
+      NameAr: product.nameAr,
+      Description: product.description,
+      DescriptionAr: product.descriptionAr,
+      Price: product.price,
+      Pictures: product.pictures
     }
     return this.httpService.invoke({
       method: "POST",
@@ -116,8 +116,8 @@ export class ProductsService {
       NameAr: product.nameAr,
       Description: product.description,
       DescriptionAr: product.descriptionAr,
-      PictureContent: product.picture,
       Price: product.price,
+      Pictures: product.pictures
     }
     return this.httpService.invoke({
       method: "POST",

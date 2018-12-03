@@ -17,6 +17,12 @@
             </div>
           </div>
         </div>
+        <div class="form-group row m-3">
+          <div (click)="load(pic)" class="p-1 parentDiv" *ngFor="let pic of product.pictures;let i=index">
+            <img [src]="pic" class="img img-responsive" style="width: 100%;height: 100%;" />
+          </div>
+        </div>
+
       </div>
       <div class="col-12 col-lg-5">
         <div class="single_product_desc">
@@ -53,3 +59,4 @@
     </div>
   </div>
 </div>
+

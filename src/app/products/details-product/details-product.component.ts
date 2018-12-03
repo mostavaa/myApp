@@ -49,5 +49,7 @@ export class DetailsProductComponent implements OnInit {
       this.router.navigate(["/editProduct", this.product.departmentGuid, this.guid]);
   }
 
-
+  load(pic: string) {
+    this.product.picture = pic;
+  }
 }

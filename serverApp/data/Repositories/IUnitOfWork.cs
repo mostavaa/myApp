@@ -10,6 +10,7 @@ namespace Data.Repositories
     IRepository<Department> DepartmentRepository { get; }
     IRepository<Product> ProductRepository { get; }
     IRepository<AppUser> AppUserRepository { get; }
+    IRepository<ProductImages> ProductImagesRepository { get; }
     ClothesContext Context { get; }
     int Commit();
   }
