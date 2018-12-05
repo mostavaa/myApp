@@ -3,14 +3,11 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\departments",
-    "\\src\\app\\departments\\create-edit-department",
-    "\\src\\app\\departments\\list-departments",
     "\\src\\app\\products",
     "\\src\\app\\products\\create-edit-product",
-    "\\src\\app\\products\\details-product",
-    "\\src\\app\\products\\list-products"
+    "\\src\\app\\services",
+    "\\src\\app\\services\\products"
   ],
-  "SelectedNode": "\\src\\app\\services\\tokenInterceptor.service.ts",
+  "SelectedNode": "\\src\\app\\services\\products\\product.service.ts",
   "PreviewInSolutionExplorer": false
 }

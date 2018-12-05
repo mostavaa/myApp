@@ -11,6 +11,6 @@
 </div>
 
 <div class="pages" >
-  <p *ngIf="!endOfProducts" (click)="next()" class="loadMore text-center"><a class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> {{'loadMore'|translate}}</a></p>
+  <p *ngIf="!endOfProducts()" (click)="next()" class="loadMore text-center"><a class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> {{'loadMore'|translate}}</a></p>
   <p  (click)="navigateToAdd()" *ngIf="departmentGuid && isLogged()" (click)="next()" class="loadMore text-center"><a class="btn btn-template-outlined"><i class="fa fa-chevron-plus"></i> {{'addModeProducts'| translate}}</a></p>
 </div>

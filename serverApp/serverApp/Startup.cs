@@ -90,7 +90,7 @@ namespace serverApp
 
       app.UseAuthentication();
 
-      app.UseHttpsRedirection();
+      //app.UseHttpsRedirection();
      // app.UseFileServer();
 
       var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();

@@ -1,6 +1,6 @@
 export class Constants{
   public static websiteEndPoint: string = "https://localhost:44343/api"
-  //public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api/";
+  //public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api";
   
   public static resources: any = {
     en: {
@@ -8,6 +8,7 @@ export class Constants{
       le: 'LE',
       rightsReserved: 'all rights reserved',
       logout: "logout",
+      login:'login',
       company: 'Mostavaa',
       home: 'Home',
       Categories: 'Categories',
@@ -33,13 +34,15 @@ export class Constants{
       yes: 'Yes',
       no: 'No',
       close: 'Close',
-      upload:'Upload at Least One Image , Max 6 Images',
+      upload: 'Upload at Least One Image , Max 6 Images',
+
     },
     ar: {
       hello: 'مرحبا',
       le: 'جنيه',
       rightsReserved: 'جميع الحقوق محفوظة',
       logout: "تسجيل الخروج",
+      login:'تسجيل الدخول',
       company: 'Mostavaa',
       home: 'الرئيسية',
       Categories: 'الاقسام',

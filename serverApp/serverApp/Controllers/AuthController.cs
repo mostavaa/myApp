@@ -52,8 +52,8 @@ namespace serverApp.Controllers
         claims.Add(new Claim(ClaimTypes.Role, item));
       }
       var tokeOptions = new JwtSecurityToken(
-          issuer: "http://localhost:44344",
-          audience: "http://localhost:44344",
+          issuer: Constants.ValidIssuer,
+          audience: Constants.ValidAudience,
           claims: claims,
           expires: DateTime.Now.AddMonths(3),
           signingCredentials: signinCredentials

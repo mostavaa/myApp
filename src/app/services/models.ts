@@ -32,7 +32,7 @@ export class Product {
   departmentGuid: string;
   guid: string;
   picture?: string;
-  pictures: string[]=[];
+  pictures?: string[]=[];
   constructor() {
 
   }

@@ -5,13 +5,12 @@ import { HttpService } from "../http.service";
 import { Constants } from "../constants";
 @Injectable()
 export class ProductsService {
-  endOfProducts: boolean;
   private products: Product[]
 
-  private page: number = 0;
+   page: number = 0;
   private take: number = 10;
   private size: number = 0;
-  private pages: number = 0;
+   pages: number = 0;
   private currentDepartmentGuid: string;
 
   productsSubject: Subject<Product[]> = new Subject<Product[]>();
@@ -26,8 +25,10 @@ export class ProductsService {
     this.page = 0;
     this.size = 1;
     this.pages = Math.floor(this.size / this.take);
-    if (this.page >= 0 && this.page < this.pages)
-      this.endOfProducts = false;
+    if ((this.size % this.take) == 0)
+      this.pages--;
+    //if (this.page >= 0 && this.page < this.pages)
+    //  this.endOfProducts = false;
   }
 
   getProducts() {
@@ -56,15 +57,17 @@ export class ProductsService {
               this.productsSubject.next(products);
               this.size = success.data.count;
               this.pages = Math.floor(this.size / this.take);
+              if ((this.size % this.take) == 0)
+                this.pages--;
             }
           }
         }
       }, error => { });
 
-    } else {
-      this.endOfProducts = true;
     }
   }
+
+
   getByGuid(guid: string) {
     let query = {
       id: guid

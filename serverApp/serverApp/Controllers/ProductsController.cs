@@ -102,22 +102,29 @@ namespace serverApp.Controllers
     [Route("add")]
     [HttpPost]
     [Authorize]
-    public IActionResult Add([FromQuery]Guid deptGuid, [FromBody] Product obj)
+    public IActionResult Add([FromQuery]Guid deptGuid, [FromBody] Product product)
     {
-      if (ProductsBusiness.IsValid(obj, deptGuid))
+      try
       {
-        UnitOfWork.ProductRepository.Add(obj);
-        try
+        if (ProductsBusiness.IsValid(product, deptGuid))
         {
-          UnitOfWork.Commit();
+          UnitOfWork.ProductRepository.Add(product);
+          try
+          {
+            UnitOfWork.Commit();
+          }
+          catch (Exception e)
+          {
+            return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["ServerError"], e.Message } });
+          }
+          return Ok(new ReturnResponse() { status = true, data = new { id = product.Guid }, messages = new string[] { SharedLocalizer["AddedSuccessfully"] } });
         }
-        catch (Exception)
-        {
-          return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["ServerError"] } });
-        }
-        return Ok(new ReturnResponse() { status = true, data = new { id = obj.Guid }, messages = new string[] { SharedLocalizer["AddedSuccessfully"] } });
+        return BadRequest(new ReturnResponse() { status = false, messages = ProductsBusiness.Errors.ToArray() });
       }
-      return BadRequest(new ReturnResponse() { status = false, messages = ProductsBusiness.Errors.ToArray() });
+      catch (Exception e)
+      {
+        return BadRequest(new ReturnResponse() { status = false, messages = new string[] { SharedLocalizer["ServerError"]  , e.Message} });
+      }
     }
     // GET api/products
 
@@ -146,7 +153,7 @@ namespace serverApp.Controllers
       {
         result.Add(new { obj.Name, obj.NameAr, obj.DescriptionAr, obj.Description, obj.Price, obj.Likes, obj.Rate, obj.Guid, departmentGuid = obj.Department.Guid, picture = obj.PictureContent });
       }
-      int count = deptId != null ? UnitOfWork.ProductRepository.Get(o => o.Department.Guid == deptId).Count() : UnitOfWork.ProductRepository.Get().Count();
+      int count = deptId != null ? UnitOfWork.ProductRepository.Get(o => depts.Contains(o.Department.Id)).Count() : UnitOfWork.ProductRepository.Get().Count();
       return Ok(new ReturnResponse() { status = true, data = new { result, count } });
     }
 

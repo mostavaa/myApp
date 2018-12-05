@@ -65,6 +65,7 @@ export class CreateEditProductComponent implements OnInit {
     let descriptionArControl = new FormControl(this.product ? this.product.descriptionAr : null, [Validators.required, Validators.minLength(3)]);
 
     let PicturesArray = new FormArray([]);
+    debugger;
     if (this.product) {
       for (var i = 0; i < this.product.pictures.length; i++) {
         let picCtrl = new FormControl(this.product.pictures[i]);
@@ -196,7 +197,7 @@ export class CreateEditProductComponent implements OnInit {
   }
 
   validImages() {
-    return (<FormArray>this.productForm.get('PicturesArray')).controls.length > 0 && (<FormArray>this.productForm.get('PicturesArray')).controls.length <= 6
+    return (<FormArray>this.productForm.get('PicturesArray')).length > 0 && (<FormArray>this.productForm.get('PicturesArray')).length <= 6
   }
 
 }

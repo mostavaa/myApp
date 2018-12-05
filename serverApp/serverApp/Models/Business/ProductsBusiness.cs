@@ -63,10 +63,11 @@ namespace serverApp.Models.Business
       }
       if (Errors.Count == 0)
       {
-        foreach (var item in product.Images)
-        {
-          UnitOfWork.ProductImagesRepository.Delete(item.Id);
-        }
+        if (product.Id != 0)
+          foreach (var item in UnitOfWork.ProductImagesRepository.Get(o => o.ProductId == product.Id).ToList())
+          {
+            UnitOfWork.ProductImagesRepository.Delete(item.Id);
+          }
         product.PictureContent = product.Pictures.First();
         product.Images = new List<ProductImages>();
         foreach (var item in product.Pictures)
