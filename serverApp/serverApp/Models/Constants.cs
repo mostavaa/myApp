@@ -14,6 +14,6 @@ namespace serverApp.Models
 
     public const string SymmetricSecurityKey = "Mostava@Hamed@Hassan";
 
-    public const int pageSize = 10;
+    public const int pageSize = 6;
   }
 }

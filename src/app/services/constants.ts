@@ -1,7 +1,7 @@
 export class Constants{
   public static websiteEndPoint: string = "https://localhost:44343/api"
   //public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api";
-  
+  public static take: number = 10;
   public static resources: any = {
     en: {
       hello: 'hello',

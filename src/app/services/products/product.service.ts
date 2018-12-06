@@ -7,8 +7,8 @@ import { Constants } from "../constants";
 export class ProductsService {
   private products: Product[]
 
-   page: number = 0;
-  private take: number = 10;
+  page: number = 0;
+  private take: number = Constants.take;
   private size: number = 0;
    pages: number = 0;
   private currentDepartmentGuid: string;

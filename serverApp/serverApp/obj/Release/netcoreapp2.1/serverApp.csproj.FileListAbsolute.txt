@@ -7,13 +7,7 @@ E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\bin\Release\netcoreapp2.1
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\bin\Release\netcoreapp2.1\data.dll
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\bin\Release\netcoreapp2.1\data.pdb
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.csprojAssemblyReference.cache
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Auth.resources
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Departments.resources
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Products.resources
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.SharedResources.resources
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Auth.ar-EG.resources
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Departments.ar-EG.resources
-E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.Controllers.Products.ar-EG.resources
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.Resources.SharedResources.ar-EG.resources
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.csproj.GenerateResource.cache
 E:\Projects\ANGULAR\angular4\myApp\serverApp\serverApp\obj\Release\netcoreapp2.1\serverApp.csproj.CoreCompileInputs.cache
