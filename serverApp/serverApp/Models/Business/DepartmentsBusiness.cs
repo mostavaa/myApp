@@ -152,8 +152,11 @@ namespace serverApp.Models.Business
             {
               Errors.Add(Localizer["DepartmentExistError"]);
             }
-            department.ParentDepartmentId = parentDepartment.Id;
-            return true;
+            else
+            {
+              department.ParentDepartmentId = parentDepartment.Id;
+              return true;
+            }
           }
           else
           {
