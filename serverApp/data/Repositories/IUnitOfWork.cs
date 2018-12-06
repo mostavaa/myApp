@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Data.Repositories
 {
-  public interface IUnitOfWork : IDisposable
+  public interface IUnitOfWork 
   {
-    IRepository<Owner> OwnerRepository { get; }
-    IRepository<Department> DepartmentRepository { get; }
-    IRepository<Product> ProductRepository { get; }
-    IRepository<AppUser> AppUserRepository { get; }
-    IRepository<ProductImages> ProductImagesRepository { get; }
-    ClothesContext Context { get; }
+    OwnerRepository OwnerRepository { get; }
+    DepartmentRepository DepartmentRepository { get; }
+    ProductRepository ProductRepository { get; }
+    AppUserRepository AppUserRepository { get; }
+    ProductImagesRepository ProductImagesRepository { get; }
     int Commit();
   }
 }

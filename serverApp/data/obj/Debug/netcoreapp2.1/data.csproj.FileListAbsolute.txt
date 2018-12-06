@@ -8,4 +8,3 @@ E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Debug\netcoreapp2.1\data.r
 E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Debug\netcoreapp2.1\data.pdb
 E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Debug\netcoreapp2.1\data.dll
 E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Debug\netcoreapp2.1\data.pdb
-E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Debug\netcoreapp2.1\data.csprojAssemblyReference.cache

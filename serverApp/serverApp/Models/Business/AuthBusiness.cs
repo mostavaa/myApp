@@ -1,25 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using serverApp.Controllers;
 using Data;
 using Data.Repositories;
 using Microsoft.Extensions.Localization;
+using serverApp.ViewModels;
 
 namespace serverApp.Models.Business
 {
   public interface IAuthBusiness
   {
-    IUnitOfWork UnitOfWork { get; set; }
-    List<string> Errors { get; set; }
-    bool IsValid(AppUser user);
+    ReturnResponse Login(AppUser user);
+    ReturnResponse Register(AppUser user);
   }
   public class AuthBusiness : IAuthBusiness
   {
-    public IUnitOfWork UnitOfWork { get; set; }
-    public IStringLocalizer<SharedResources> Localizer { get; }
-
+    private IUnitOfWork UnitOfWork { get; set; }
+    private IStringLocalizer<SharedResources> Localizer { get; }
+    private List<string> Errors { get; set; }
     public AuthBusiness(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
     {
       UnitOfWork = unitOfWork;
@@ -27,19 +24,68 @@ namespace serverApp.Models.Business
       Errors = new List<string>();
     }
 
-    public List<string> Errors { get; set; }
-    public bool IsValid(AppUser user)
+    private bool IsValidUser(AppUser user)
     {
       Errors = new List<string>();
       if (user.Username.Length < 3)
         Errors.Add(Localizer["usernameLengthError"]);
       if (user.Password.Length < 3)
         Errors.Add(Localizer["passwordLengthError"]);
-      if (UnitOfWork.AppUserRepository.Get(o => o.Username.ToLower() == o.Username.ToLower()).Any())
+      if (UnitOfWork.AppUserRepository.IsUsernameExist(user.Username))
         Errors.Add(Localizer["usernameUniqueError"]);
       return Errors.Count == 0;
     }
 
+    public ReturnResponse Register(AppUser user)
+    {
+      if (IsValidUser(user))
+      {
+        UnitOfWork.AppUserRepository.AddNewUser(user);
+        try
+        {
+          UnitOfWork.Commit();
+          return (new ReturnResponse
+          {
+            status = true,
+            data = new
+            {
+              accessToken = Token.GenerateTokens(user.Username, new List<string>()),
+              refreshToken = user.Guid
+            }
+          });
+        }
+        catch (Exception)
+        {
+          return new ReturnResponse() { status = false, messages = new string[] { Localizer["ServerError"] } };
+        }
+      }
+      else
+      {
+        return new ReturnResponse()
+        {
+          status = false,
+          messages = Errors.ToArray()
+        };
+      }
+    }
 
+    public ReturnResponse Login(AppUser user)
+    {
+      AppUser dbUser = UnitOfWork.AppUserRepository.GetByUsernameAndPassword(user.Username, user.Password);
+      if (dbUser != null)
+      {
+        return new ReturnResponse() { status = true, data = new { accessToken = Token.GenerateTokens(dbUser.Username, new List<string>()), refreshToken = dbUser.Guid } };
+      }
+
+      if (user.refreshToken != Guid.Empty)
+      {
+        dbUser = UnitOfWork.AppUserRepository.GetByRefreshToken(user.refreshToken);
+        if (dbUser != null)
+        {
+          return new ReturnResponse() { status = true, data = new { accessToken = Token.GenerateTokens(dbUser.Username, new List<string>()), refreshToken = dbUser.Guid } };
+        }
+      }
+      return new ReturnResponse() { status = false, messages = new string[] { Localizer["WrongUserNameOrPassword"] } };
+    }
   }
 }

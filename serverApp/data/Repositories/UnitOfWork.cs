@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Data.Repositories
 {
-  public class UnitOfWork : IUnitOfWork
+  public class UnitOfWork : IUnitOfWork, IDisposable
   {
-    public ClothesContext Context { get; }
+    private ClothesContext Context { get; }
 
     public UnitOfWork(ClothesContext context)
     {
@@ -26,51 +24,46 @@ namespace Data.Repositories
       }
       return returned;
     }
-    private IRepository<Owner> _ownerRepository { get; set; }
-    public IRepository<Owner> OwnerRepository
+    private OwnerRepository _ownerRepository { get; set; }
+    public OwnerRepository OwnerRepository
     {
       get
       {
         return _ownerRepository = _ownerRepository ?? new OwnerRepository(Context);
       }
     }
-
-    private IRepository<Department> _departmentRepository { get; set; }
-    public IRepository<Department> DepartmentRepository
+    private DepartmentRepository _departmentRepository { get; set; }
+    public DepartmentRepository DepartmentRepository
     {
       get
       {
         return _departmentRepository = _departmentRepository ?? new DepartmentRepository(Context);
       }
     }
-
-    private IRepository<Product> _ProductRepository { get; set; }
-    public IRepository<Product> ProductRepository
+    private ProductRepository _ProductRepository { get; set; }
+    public ProductRepository ProductRepository
     {
       get
       {
         return _ProductRepository = _ProductRepository ?? new ProductRepository(Context);
       }
     }
-
-    private IRepository<AppUser> _AppUserRepository { get; set; }
-    public IRepository<AppUser> AppUserRepository
+    private AppUserRepository _AppUserRepository { get; set; }
+    public AppUserRepository AppUserRepository
     {
       get
       {
         return _AppUserRepository = _AppUserRepository ?? new AppUserRepository(Context);
       }
     }
-
-    private IRepository<ProductImages> _ProductImagesRepository { get; set; }
-    public IRepository<ProductImages> ProductImagesRepository
+    private ProductImagesRepository _ProductImagesRepository { get; set; }
+    public ProductImagesRepository ProductImagesRepository
     {
       get
       {
         return _ProductImagesRepository = _ProductImagesRepository ?? new ProductImagesRepository(Context);
       }
     }
-
     public void Dispose()
     {
       Context.Dispose();
