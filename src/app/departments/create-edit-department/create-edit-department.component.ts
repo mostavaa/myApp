@@ -33,7 +33,9 @@ export class CreateEditDepartmentComponent implements OnInit {
       } else if (params["departmentGuid"]) {
         this.editMode = true;
         this.departmentGuid = params["departmentGuid"];
-        let department = this.departmentService.getDepartmentByGuid(this.departmentGuid);// it may not work and it needs a subscription
+        let department
+   
+          department = this.departmentService.getDepartmentByGuid(this.departmentGuid);
         if (department)
           department.subscribe(dept => {
             this.department = dept;

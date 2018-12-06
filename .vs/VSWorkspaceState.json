@@ -3,9 +3,11 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\shared",
-    "\\src\\app\\shared\\headers"
+    "\\src\\app\\products",
+    "\\src\\app\\products\\create-edit-product",
+    "\\src\\app\\services",
+    "\\src\\app\\services\\products"
   ],
-  "SelectedNode": "\\src\\app\\app.component.ts",
+  "SelectedNode": "\\src\\app\\services\\products\\product.service.ts",
   "PreviewInSolutionExplorer": false
 }

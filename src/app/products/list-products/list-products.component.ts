@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth.service';
 export class ListProductsComponent implements OnInit {
   products: Product[] = [];
   departmentGuid: string;
-  endOfProducts: boolean = true;
   lang: string = "en";
 
   constructor(
@@ -39,7 +38,6 @@ export class ListProductsComponent implements OnInit {
         this.productsService.initProducts("all");
         this.productsService.getProducts();
       }
-      this.endOfProducts = this.productsService.endOfProducts;
     })
 
   }
@@ -48,7 +46,9 @@ export class ListProductsComponent implements OnInit {
   }
   next() {
     this.productsService.getProducts();
-    this.endOfProducts = this.productsService.endOfProducts;
+  }
+  endOfProducts() {
+    return this.productsService.page > this.productsService.pages
   }
   navigateToProduct(product: Product) {
     this.router.navigate(["/products", product.departmentGuid, product.guid]);

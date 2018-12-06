@@ -5,13 +5,12 @@ import { HttpService } from "../http.service";
 import { Constants } from "../constants";
 @Injectable()
 export class ProductsService {
-  endOfProducts: boolean;
   private products: Product[]
 
-  private page: number = 0;
-  private take: number = 10;
+  page: number = 0;
+  private take: number = Constants.take;
   private size: number = 0;
-  private pages: number = 0;
+   pages: number = 0;
   private currentDepartmentGuid: string;
 
   productsSubject: Subject<Product[]> = new Subject<Product[]>();
@@ -26,8 +25,10 @@ export class ProductsService {
     this.page = 0;
     this.size = 1;
     this.pages = Math.floor(this.size / this.take);
-    if (this.page >= 0 && this.page < this.pages)
-      this.endOfProducts = false;
+    if ((this.size % this.take) == 0)
+      this.pages--;
+    //if (this.page >= 0 && this.page < this.pages)
+    //  this.endOfProducts = false;
   }
 
   getProducts() {
@@ -44,7 +45,7 @@ export class ProductsService {
       this.httpService.invoke({
         method: 'GET',
         url: Constants.websiteEndPoint,
-        path: 'Products',
+        path: 'Products/all',
         query: query
       }).subscribe(success => {
         if (success && success["status"] && success["status"] == true) {
@@ -56,15 +57,17 @@ export class ProductsService {
               this.productsSubject.next(products);
               this.size = success.data.count;
               this.pages = Math.floor(this.size / this.take);
+              if ((this.size % this.take) == 0)
+                this.pages--;
             }
           }
         }
       }, error => { });
 
-    } else {
-      this.endOfProducts = true;
     }
   }
+
+
   getByGuid(guid: string) {
     let query = {
       id: guid
@@ -92,12 +95,12 @@ export class ProductsService {
       id: product.guid
     }
     let body = {
-        Name: product.name,
-        NameAr: product.nameAr,
-        Description: product.description,
-        DescriptionAr: product.descriptionAr,
-        PictureContent: product.picture,
-        Price: product.price,
+      Name: product.name,
+      NameAr: product.nameAr,
+      Description: product.description,
+      DescriptionAr: product.descriptionAr,
+      Price: product.price,
+      Pictures: product.pictures
     }
     return this.httpService.invoke({
       method: "POST",
@@ -116,8 +119,8 @@ export class ProductsService {
       NameAr: product.nameAr,
       Description: product.description,
       DescriptionAr: product.descriptionAr,
-      PictureContent: product.picture,
       Price: product.price,
+      Pictures: product.pictures
     }
     return this.httpService.invoke({
       method: "POST",

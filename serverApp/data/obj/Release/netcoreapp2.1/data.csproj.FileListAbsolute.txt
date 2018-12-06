@@ -1,0 +1,11 @@
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Release\netcoreapp2.1\data.deps.json
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Release\netcoreapp2.1\data.runtimeconfig.json
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Release\netcoreapp2.1\data.runtimeconfig.dev.json
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Release\netcoreapp2.1\data.dll
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\bin\Release\netcoreapp2.1\data.pdb
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.csprojAssemblyReference.cache
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.csproj.CoreCompileInputs.cache
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.AssemblyInfoInputs.cache
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.AssemblyInfo.cs
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.dll
+E:\Projects\ANGULAR\angular4\myApp\serverApp\data\obj\Release\netcoreapp2.1\data.pdb

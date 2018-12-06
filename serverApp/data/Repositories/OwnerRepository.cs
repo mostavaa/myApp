@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Data.Repositories
 {
-    public class OwnerRepository:Repository<Owner>
-    {
-
-        public OwnerRepository(ClothesContext context):base(context){}
- 
-    }
+  public class OwnerRepository : Repository<Owner>
+  {
+    public OwnerRepository(ClothesContext context) : base(context) { }
+  }
 }

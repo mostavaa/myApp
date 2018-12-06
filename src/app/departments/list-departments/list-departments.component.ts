@@ -57,11 +57,13 @@ export class ListDepartmentsComponent implements OnInit {
         if (val.state.root.firstChild.params["departmentGuid"] || val.state.root.firstChild.params["parentGuid"]) {
           if (val.state.root.firstChild.params["departmentGuid"]) {
             this.routeDepartmentGuid = val.state.root.firstChild.params["departmentGuid"];
-            this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
+            if (this.routeDepartmentGuid != "0")
+              this.getDepartmentByGuid(val.state.root.firstChild.params["departmentGuid"])
           }
           if (val.state.root.firstChild.params["parentGuid"]) {
             this.routeDepartmentGuid = val.state.root.firstChild.params["parentGuid"];
-            this.getDepartmentByGuid(val.state.root.firstChild.params["parentGuid"])
+            if (this.routeDepartmentGuid != "0")
+              this.getDepartmentByGuid(val.state.root.firstChild.params["parentGuid"])
           }
           if (val.state.root.firstChild.params["departmentGuid"] == null && !val.state.root.firstChild.params["parentGuid"]) {
             this.getAllDepartments();

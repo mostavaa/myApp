@@ -147,6 +147,25 @@ namespace data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Data.ProductImages", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("Data.Department", b =>
                 {
                     b.HasOne("Data.Department", "ParentDepartment")
@@ -159,6 +178,14 @@ namespace data.Migrations
                     b.HasOne("Data.Department", "Department")
                         .WithMany("Products")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Data.ProductImages", b =>
+                {
+                    b.HasOne("Data.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
