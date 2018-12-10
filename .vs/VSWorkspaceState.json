@@ -4,10 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\products",
-    "\\src\\app\\products\\create-edit-product",
+    "\\src\\app\\products\\list-products",
     "\\src\\app\\services",
     "\\src\\app\\services\\products"
   ],
-  "SelectedNode": "\\src\\app\\services\\products\\product.service.ts",
   "PreviewInSolutionExplorer": false
 }

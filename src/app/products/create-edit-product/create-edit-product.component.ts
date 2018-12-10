@@ -68,7 +68,7 @@ export class CreateEditProductComponent implements OnInit {
     debugger;
     if (this.product) {
       for (var i = 0; i < this.product.pictures.length; i++) {
-        let picCtrl = new FormControl(this.product.pictures[i]);
+        let picCtrl = new FormControl(Constants.uploadsFolder + this.product.pictures[i]);
         PicturesArray.push(picCtrl);
       }
     }

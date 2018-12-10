@@ -3,7 +3,7 @@ import { ProductsService } from '../../services/products/product.service';
 import { Product } from '../../services/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { Constants } from '../../services/constants';
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -13,7 +13,7 @@ export class ListProductsComponent implements OnInit {
   products: Product[] = [];
   departmentGuid: string;
   lang: string = "en";
-
+  uploadsFolder = Constants.uploadsFolder;
   constructor(
     private productsService: ProductsService,
     private route: ActivatedRoute,

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../services/models';
 import { ProductsService } from '../../services/products/product.service';
 import { AuthService } from '../../services/auth.service';
-
+import { Constants } from '../../services/constants';
 @Component({
   selector: 'app-details-product',
   templateUrl: './details-product.component.html',
@@ -13,7 +13,7 @@ export class DetailsProductComponent implements OnInit {
   guid: string;
   product: Product
   lang: string = "en";
-
+  uploadsFolder = Constants.uploadsFolder;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Data;
 using Data.Repositories;
 using Microsoft.Extensions.Localization;
 using serverApp.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace serverApp.Models.Business
 {
@@ -70,22 +73,52 @@ namespace serverApp.Models.Business
         {
           foreach (var item in UnitOfWork.ProductImagesRepository.GetProductImages(product.Id))
           {
-            UnitOfWork.ProductImagesRepository.DeleteImage(item.Id);
+            if (!product.Pictures.Any(o => o.Contains(item.Name)))
+            {
+              UnitOfWork.ProductImagesRepository.DeleteImage(item.Id);
+              UnlinkImage(item.Name);
+            }
           }
         }
-        if (product.Pictures.Count > 0)
-          product.PictureContent = product.Pictures.First();
-        product.Images = new List<ProductImages>();
-        foreach (var item in product.Pictures)
-        {
-          product.Images.Add(new ProductImages()
-          {
-            Name = item
-          });
-        }
+
       }
 
       return Errors.Count == 0;
+    }
+    private void UnlinkImage(string str)
+    {
+      var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/uploads/products", str);
+      if (File.Exists(path))
+        System.IO.File.Delete(path);
+    }
+    private void SaveImages(Product product)
+    {
+      if (product.Images == null)
+        product.Images = new List<ProductImages>();
+      int counter = 1;
+      foreach (var item in product.Pictures.Where(o => o.Length > 200))
+      {
+        string fileName = product.Guid + DateTime.Now.ToString("yyyy-MM-dd-h-m-s") + "_" + counter + ".png";
+        if (counter == 1) product.PictureContent = fileName;
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/uploads/products", fileName);
+        try
+        {
+          System.IO.FileInfo file = new System.IO.FileInfo(path);
+          file.Directory.Create();
+          var base64Data = Regex.Match(item, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+          System.IO.File.WriteAllBytes(file.FullName, Convert.FromBase64String(base64Data));
+        }
+        catch (Exception e)
+        {
+
+          throw;
+        }
+        product.Images.Add(new ProductImages()
+        {
+          Name = fileName
+        });
+        counter++;
+      }
     }
 
     public ReturnResponse DeleteProduct(Guid id)
@@ -96,6 +129,7 @@ namespace serverApp.Models.Business
         foreach (ProductImages image in UnitOfWork.ProductImagesRepository.GetProductImages(product.Id))
         {
           UnitOfWork.ProductImagesRepository.DeleteImage(image.Id);
+          UnlinkImage(image.Name);
         }
         UnitOfWork.ProductRepository.DeleteProduct(product.Id);
         try
@@ -131,6 +165,7 @@ namespace serverApp.Models.Business
       {
         try
         {
+          SaveImages(obj);
           UnitOfWork.Commit();
         }
         catch (Exception)
@@ -151,6 +186,7 @@ namespace serverApp.Models.Business
           UnitOfWork.ProductRepository.AddProduct(product);
           try
           {
+            SaveImages(product);
             UnitOfWork.Commit();
           }
           catch (Exception e)

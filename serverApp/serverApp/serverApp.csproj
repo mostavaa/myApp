@@ -48,4 +48,8 @@
     <ProjectReference Include="..\data\data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\uploads\products\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,6 @@
 export class Constants{
+  public static uploadsFolder: string = "https://localhost:44343/assets/uploads/products/"
+  //public static uploadsFolder: string = "http://mostavaahamed-001-site1.ctempurl.com/assets/uploads/products/"
   public static websiteEndPoint: string = "https://localhost:44343/api"
   //public static websiteEndPoint: string = "http://mostavaahamed-001-site1.ctempurl.com/api";
   public static take: number = 10;
